@@ -1,0 +1,1015 @@
+<!DOCTYPE html><html lang="fr" data-theme="light"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Construction Gauthier — Projet</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root,html[data-theme="light"]{color-scheme:light;
+--pine:#4C7334;--pine-2:#618E43;--pine-soft:#EEF2EB;--amber:#D97706;--amber-deep:#B45309;
+--concrete:#F9FAFB;--surface:#FFFFFF;--surface-2:#F3F4F6;--ink:#111827;--muted:#6B7280;--line:#E5E7EB;--line-strong:#D1D5DB;--ok:#15803D;--warn:#B45309;--bad:#B91C1C;--radius:12px;
+--green:var(--pine);--green-dk:#3B5A28;--green-mid:var(--pine-2);--green-lt:var(--pine-soft);--green-soft:#F4F7F1;
+--dark:var(--ink);--faint:#9CA3AF;--card:var(--surface);--bg:var(--concrete);
+--blue:#2563EB;--blue-lt:#EFF4FB;--red:var(--bad);--red-lt:#FDECEC;--amber-lt:#FEF3E2;
+--sh:0 1px 2px rgba(17,24,39,.05),0 2px 6px rgba(17,24,39,.06);--r:var(--radius);}
+html[data-theme="dark"]{color-scheme:dark;
+--pine:#A6D083;--pine-2:#8FBF6E;--pine-soft:#1D2A16;--amber:#FCD34D;--amber-deep:#FCD34D;
+--concrete:#0F1115;--surface:#171A1F;--surface-2:#1F242B;--ink:#F3F4F6;--muted:#9CA3AF;--line:#2A2F37;--line-strong:#3A414B;--ok:#4ADE80;--warn:#FCD34D;--bad:#F87171;--radius:12px;
+--green:var(--pine);--green-dk:var(--pine-2);--green-mid:var(--pine-2);--green-lt:var(--pine-soft);--green-soft:#1A2113;
+--dark:var(--ink);--faint:#6B7280;--card:var(--surface);--bg:var(--concrete);
+--blue:#60A5FA;--blue-lt:#1E293B;--red:var(--bad);--red-lt:#2A1515;--amber-lt:#2A2410;
+--sh:0 1px 2px rgba(0,0,0,.45);--r:var(--radius);}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;font-size:14px;line-height:1.42;-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums}
+.tabnum{font-variant-numeric:tabular-nums}
+/* topbar */
+.topbar{background:var(--surface);border-bottom:1px solid var(--line);padding:0 22px;height:56px;display:flex;align-items:center;gap:14px;position:sticky;top:0;z-index:30}
+.brand{display:flex;align-items:center;gap:10px}
+.brand{gap:8px}
+.brand .cubel{display:block;flex:0 0 auto}
+.brand .bc{font-size:13px;color:var(--muted);font-weight:500;white-space:nowrap}
+.crumb{font-size:13px;color:var(--muted);margin-left:2px}
+.crumb::before{content:"\203a";color:var(--faint);margin-right:6px}
+.crumb a{color:var(--green-dk);text-decoration:none;font-weight:600;cursor:pointer}
+.topbar .sp{margin-left:auto;font-size:12px;color:var(--faint)}
+/* portfolio */
+.wrap{max-width:1080px;margin:0 auto;padding:24px 20px 50px}
+h1{font-size:21px;font-weight:700;letter-spacing:-.01em;color:var(--ink)}
+.sub{font-size:12.5px;color:var(--muted);margin-top:4px}
+.proto{display:inline-block;background:var(--amber-lt);color:#7a5c00;border:1px solid #e8d08a;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;margin-top:10px}
+.ptools{display:flex;align-items:center;gap:12px;margin:18px 0 10px;flex-wrap:wrap}
+.search{flex:1;min-width:200px;display:flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:9px 13px;box-shadow:var(--sh)}
+.search input{border:none;outline:none;font-size:13.5px;width:100%;font-family:inherit;background:transparent}
+.count{font-size:12px;color:var(--muted);font-weight:700}
+.plist{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;box-shadow:var(--sh)}
+.phrow{display:grid;grid-template-columns:80px 1fr 130px 124px 150px 112px;align-items:center;gap:12px;padding:10px 15px;border-top:1px solid #f1f3eb;cursor:pointer;font-size:13px}
+.phrow.head{background:var(--dark);color:#fff;cursor:default;font-size:10px;text-transform:uppercase;letter-spacing:.05em;font-weight:700}
+.phrow:not(.head):first-child{border-top:none}
+.phrow:not(.head):hover{background:var(--green-soft)}
+.phrow .num{font-family:ui-monospace,'Cascadia Code',monospace;font-size:12px;color:var(--muted)}
+.phrow .nm{font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.phrow .mo{font-size:11px;color:var(--faint);font-family:ui-monospace,monospace}
+.phrow .right{text-align:right;font-variant-numeric:tabular-nums}
+.st{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600}
+.dot{width:8px;height:8px;border-radius:50%}
+.dot.c{background:var(--green)}.dot.p{background:var(--blue)}.dot.a{background:var(--amber)}.dot.d{background:#a7ad99}
+/* project shell */
+#project{display:none}
+.player{display:flex;min-height:calc(100vh - 56px)}
+.side{width:236px;flex:0 0 236px;background:var(--surface);border-right:1px solid var(--line);padding:12px 0;position:sticky;top:56px;height:calc(100vh - 56px);overflow:auto}
+.side .bk{display:flex;align-items:center;gap:7px;color:var(--green-dk);font-weight:700;font-size:12.5px;cursor:pointer;padding:4px 18px 12px}
+.side .grp{font-size:9.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--faint);font-weight:800;padding:13px 18px 6px}
+.navi{display:flex;align-items:center;gap:11px;padding:9px 18px;font-size:13.5px;color:var(--ink);cursor:pointer;border-left:3px solid transparent}
+.navi:hover{background:var(--green-soft)}
+.navi.on{background:var(--green-lt);border-left-color:var(--green);color:var(--green-dk);font-weight:700}
+.navi .i{width:18px;flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;color:var(--muted)}
+.navi .i svg{width:16px;height:16px}
+.navi:hover .i{color:var(--green-dk)}
+.navi.on .i{color:var(--green)}
+.navi .ext{margin-left:auto;font-size:11px;color:var(--faint)}
+.main{flex:1;padding:22px 26px 48px;max-width:calc(100% - 236px)}
+.phead{display:flex;align-items:flex-start;gap:14px;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:16px;margin-bottom:4px}
+.pnum2{font-family:ui-monospace,monospace;font-size:12.5px;color:var(--muted)}
+.phead h2{font-size:23px;font-weight:700;letter-spacing:-.01em;color:var(--ink)}
+.maestro{margin-left:auto;background:var(--blue-lt);border:1px solid #c3d6ea;color:#2a5580;font-size:12px;font-weight:700;padding:8px 13px;border-radius:10px;white-space:nowrap;text-align:center}
+.maestro small{display:block;font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;font-weight:700}
+.meta{display:flex;flex-wrap:wrap;gap:6px 26px;margin-top:11px;font-size:13px;color:var(--muted);width:100%}
+.meta b{color:var(--ink)}
+.viewtitle{font-size:21px;font-weight:700;letter-spacing:-.01em;color:var(--ink);margin:18px 0 4px}
+.viewsub{font-size:12.5px;color:var(--muted);margin-bottom:14px}
+.sect{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:20px 0 11px}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:13px 14px;box-shadow:var(--sh)}
+.kpi .l{font-size:9.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);font-weight:700}
+.kpi .v{font-size:20px;font-weight:800;margin-top:4px;font-variant-numeric:tabular-nums;color:var(--dark)}
+.kpi .v.g{color:var(--green-dk)}.kpi .v.r{color:var(--red)}.kpi .v.b{color:var(--blue)}
+.kpi .n{font-size:10px;color:var(--muted);margin-top:2px}
+.grid2{display:grid;grid-template-columns:1.45fr 1fr;gap:14px}
+.grid2b{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px 17px;box-shadow:var(--sh)}
+.panel h3{font-size:14px;font-weight:800;color:var(--dark)}
+.panel .ph{font-size:11.5px;color:var(--muted);margin:2px 0 10px}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:11.5px;color:var(--muted);justify-content:center;margin-top:6px}
+.legend i{display:inline-block;width:22px;height:0;border-top:3px solid;vertical-align:middle;margin-right:5px}
+.legend s{display:inline-block;width:11px;height:11px;border-radius:3px;vertical-align:-1px;margin-right:5px}
+.hbar{display:grid;grid-template-columns:140px 1fr 42px;align-items:center;gap:10px;margin:10px 0;font-size:12.5px}
+.hbar .t{height:13px;background:#edf0e6;border-radius:7px;overflow:hidden}
+.hbar .t>i{display:block;height:100%;background:linear-gradient(90deg,var(--green-mid),var(--green-dk));border-radius:7px}
+.hbar .p{text-align:right;font-weight:700;font-variant-numeric:tabular-nums}
+table.lt{width:100%;border-collapse:collapse;font-size:12.5px}
+table.lt th{background:#f4f6ef;color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:.03em;text-align:right;padding:9px 10px;font-weight:700}
+table.lt th:first-child{text-align:left}
+table.lt td{padding:9px 10px;border-top:1px solid #eef0e6;text-align:right;font-variant-numeric:tabular-nums}
+table.lt td:first-child{text-align:left;font-weight:600}
+table.lt td.pos{color:var(--green-dk);font-weight:700}table.lt td.neg{color:var(--red);font-weight:700}
+table.lt tr.tot td{font-weight:800;border-top:2px solid var(--line);background:#f8faf5}
+.vcards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:4px}
+.vcard{border-radius:10px;padding:12px 13px;border:1px solid}
+.vcard.ok{background:var(--green-lt);border-color:#bfe0c7}.vcard.bad{background:var(--red-lt);border-color:#f0c3bf}.vcard.warn{background:var(--amber-lt);border-color:#ecd79a}
+.vcard .l{font-size:10px;text-transform:uppercase;letter-spacing:.04em;font-weight:700;color:var(--muted)}
+.vcard .v{font-size:19px;font-weight:800;margin-top:3px;font-variant-numeric:tabular-nums}
+.vcard .n{font-size:10.5px;color:var(--muted);margin-top:1px}
+.empty{background:var(--card);border:1px dashed var(--line);border-radius:var(--r);padding:34px;text-align:center;color:var(--muted);font-size:13px}
+.linkcard{display:flex;align-items:center;gap:13px;background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:15px 16px;box-shadow:var(--sh);cursor:pointer;margin-bottom:11px}
+.linkcard:hover{border-color:var(--green-mid)}
+.linkcard .i{width:40px;height:40px;border-radius:10px;background:var(--green-lt);display:flex;align-items:center;justify-content:center;font-size:19px}
+.linkcard .tn{font-weight:800}.linkcard .td{font-size:12px;color:var(--muted)}
+.linkcard .go{margin-left:auto;color:var(--green-dk);font-weight:700;font-size:13px}
+.rep{display:grid;grid-template-columns:90px 1fr 90px 90px;gap:10px;padding:10px 0;border-top:1px solid #eef0e6;font-size:13px;align-items:center}
+.rep:first-child{border-top:none}
+.rep .d{font-weight:700}.rep .m{color:var(--muted);font-size:12px}
+.pill{display:inline-block;font-size:11px;font-weight:700;padding:2px 9px;border-radius:20px;background:var(--green-lt);color:var(--green-dk)}
+@media(max-width:680px){.side{display:none}.main{max-width:100%}.grid2,.grid2b{grid-template-columns:1fr}.kpis,.vcards{grid-template-columns:repeat(2,1fr)}}
+
+.subtabs{display:flex;gap:2px;flex-wrap:wrap;border-bottom:1px solid var(--line);margin-bottom:16px;overflow:auto}
+.subtab{padding:8px 11px;font-size:12.5px;color:var(--muted);border-bottom:2px solid transparent;white-space:nowrap;cursor:pointer}
+.subtab.on{color:var(--green-dk);border-bottom-color:var(--green);font-weight:700}
+.stp{display:flex;align-items:center;margin:14px 0 18px;max-width:560px}
+.stp .s{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--muted)}
+.stp .s.done{color:var(--green-dk);font-weight:700}
+.stp .s .n{width:22px;height:22px;border-radius:50%;background:#e5e9de;color:var(--muted);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800}
+.stp .s.done .n{background:var(--green);color:#fff}
+.stp .ln{flex:1;height:2px;background:var(--green);margin:0 8px}
+.tree{border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:var(--surface);box-shadow:var(--sh)}
+.tph{background:var(--green-lt);padding:10px 14px;font-weight:700;display:flex;align-items:center;gap:9px;color:var(--dark)}
+.tag2{font-size:10px;font-weight:800;padding:2px 8px;border-radius:5px;text-transform:uppercase;letter-spacing:.03em}
+.tag2.ph{background:var(--green);color:#fff}.tag2.sec{background:#d7efe1;color:#2f7d4f}.tag2.dis{background:#fbf0d4;color:#8a6a10}
+.tsec{padding:9px 14px 9px 30px;display:flex;align-items:center;gap:8px;border-top:1px solid #f0f2ea;font-weight:600}
+.tdis{padding:8px 14px 8px 48px;display:flex;align-items:center;gap:8px;border-top:1px solid #f4f6ef;font-size:13px;font-weight:600}
+.tlot{display:grid;grid-template-columns:104px 1fr 64px 108px 92px;align-items:center;gap:10px;padding:8px 14px 8px 66px;border-top:1px solid #f5f7f0;font-size:12.5px}
+.tlot:hover{background:var(--green-soft)}
+.codep{font-family:ui-monospace,monospace;font-size:11px;background:#efeafc;color:#6a4fb0;padding:2px 7px;border-radius:5px;font-weight:700;text-align:center}
+.tlot .u{color:var(--muted);text-align:right}
+.tlot .b{text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
+.np{font-size:10.5px;color:var(--green-dk);background:var(--green-lt);padding:2px 8px;border-radius:5px;text-align:center}
+
+.rqc{display:flex;gap:24px;flex-wrap:wrap;margin:8px 0 16px}
+.rqc .c{display:flex;align-items:center;gap:10px}
+.rqc .n2{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;color:#fff}
+.rqc .lbl{font-size:12.5px;color:var(--muted);font-weight:600}
+.badge{font-size:11px;font-weight:700;padding:3px 9px;border-radius:5px;white-space:nowrap}
+.badge.ouv{background:var(--amber-lt);color:#8a6a10}
+.badge.ter{background:var(--blue-lt);color:#2a5580}
+.badge.att{background:#efeafc;color:#6a4fb0}
+.badge.app{background:var(--green-lt);color:var(--green-dk)}
+.acti{color:var(--muted);margin-left:9px;cursor:pointer}
+
+.pgal{display:grid;grid-template-columns:repeat(auto-fill,minmax(146px,1fr));gap:10px}
+.pph{border-radius:10px;overflow:hidden;border:1px solid var(--line);background:var(--surface);position:relative}
+.pph .im{height:102px}
+.pph .acc{position:absolute;top:6px;right:6px;background:rgba(255,255,255,.92);color:#2a5580;font-size:8.5px;font-weight:800;padding:2px 6px;border-radius:5px;border:1px solid #c3d6ea}
+.pph .cap{padding:7px 9px}
+.pph .cap .t{font-size:11.5px;font-weight:600}
+.pph .cap .m{font-size:10px;color:var(--muted);margin-top:1px}
+.datehd{font-size:13px;font-weight:800;color:var(--dark);margin:18px 0 10px;display:flex;align-items:center;gap:10px}
+.datehd .cnt{font-size:11.5px;color:var(--muted);font-weight:600}
+
+.afftop{display:flex;align-items:flex-start;gap:14px;flex-wrap:wrap;justify-content:space-between}
+.afftoggle{display:flex;gap:2px;background:#eef1e8;border-radius:8px;padding:3px}
+.afftoggle span{padding:6px 12px;font-size:12.5px;border-radius:6px;color:var(--muted);cursor:pointer}
+.afftoggle span.on{background:var(--surface);color:var(--dark);font-weight:700;box-shadow:var(--sh)}
+.affbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:14px 0}
+.hz{display:flex;gap:2px;background:#eef1e8;border-radius:8px;padding:3px}
+.hz span{min-width:30px;text-align:center;padding:5px 7px;font-size:12px;border-radius:6px;color:var(--muted);cursor:pointer}
+.hz span.on{background:var(--surface);color:var(--green-dk);font-weight:700}
+.btn-g{background:var(--green);color:#fff;border:none;border-radius:8px;padding:9px 18px;font-weight:800;font-size:13px;cursor:pointer;margin-left:auto}
+.affgrid{display:grid;grid-template-columns:186px 1fr;gap:12px}
+.affleft{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px;box-shadow:var(--sh);align-self:start}
+.affleft .tt{font-size:11.5px;color:var(--muted);margin-bottom:10px}
+.wchip{display:flex;align-items:center;gap:6px;background:var(--green-lt);border:1px solid #bfe0c7;border-radius:8px;padding:7px 9px;margin-bottom:7px;cursor:grab}
+.wchip .nm{font-weight:700;font-size:12.5px}
+.wchip .bd{font-size:8.5px;font-weight:800;padding:1px 5px;border-radius:4px;background:var(--surface);color:var(--green-dk);border:1px solid #bfe0c7}
+.wchip .av{margin-left:auto;font-size:9.5px;color:var(--muted)}
+.affright{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:auto;box-shadow:var(--sh)}
+.affdays{display:grid;grid-template-columns:220px repeat(7,minmax(90px,1fr));background:#f4f6ef;border-bottom:1px solid var(--line);font-size:11px;color:var(--muted);font-weight:700}
+.affdays>div{padding:9px 8px;text-align:center}.affdays>div:first-child{text-align:left}
+.affproj{border-bottom:1px solid var(--line)}
+.affph{display:grid;grid-template-columns:220px repeat(7,minmax(90px,1fr))}
+.affph>.pinfo{padding:10px;border-right:1px solid var(--line)}
+.affph .pn{font-weight:700;font-size:13px}.affph .pm{font-size:10px;color:var(--muted);margin-top:3px;line-height:1.5}
+.affph .pbar{height:5px;background:#edf0e6;border-radius:3px;margin-top:7px;overflow:hidden}.affph .pbar>i{display:block;height:100%;background:var(--green)}
+.dcell{border-right:1px solid #f1f3eb;padding:6px;min-height:62px;display:flex;flex-direction:column;gap:4px}
+.dchip{background:var(--green-lt);border:1px solid #bfe0c7;border-radius:5px;padding:3px 6px;font-size:10.5px;font-weight:600;text-align:center;color:var(--green-dk)}
+.dchip.chef{background:#fff4d6;border-color:#e8d08a;color:#8a6a10}
+</style></head><body>
+
+<div class="topbar">
+  <div class="brand"><svg class="cubel" width="16" height="17" viewBox="0 0 22 24" aria-hidden="true"><polygon points="11,1 21,6 11,11 1,6" fill="#8BC47B"/><polygon points="1,6 11,11 11,23 1,18" fill="#618E43"/><polygon points="21,6 11,11 11,23 21,18" fill="#4C7334"/></svg><span class="bc">Construction Gauthier · Opérations</span></div>
+  <div class="crumb" id="crumb"><a onclick="show('portfolio')">Portefeuille</a></div>
+  <div class="sp">Démo · données illustratives</div>
+</div>
+
+<!-- PORTFOLIO -->
+<div id="portfolio"><div class="player">
+  <nav class="side">
+    <div class="grp">Vue d'ensemble</div>
+    <div class="navi on" data-av="port"><span class="i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg></span>Portefeuille</div>
+    <div class="navi" data-av="dashg"><span class="i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg></span>Tableau de bord global</div>
+    <div class="grp">Transversal</div>
+    <div class="navi" data-av="ops"><span class="i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></span>Gestion Ops</div>
+    <div class="navi" data-av="rep"><span class="i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>Répertoire des ressources</div>
+    <div class="navi" data-av="affect"><span class="i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span>Affectation de la main-d'œuvre</div>
+    <div class="navi" data-av="rqg"><span class="i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="13" y2="16"/></svg></span>Rapports quotidiens</div>
+    <div class="navi" data-av="sst"><span class="i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></span>SST</div>
+    <div class="navi" data-av="qual"><span class="i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M9 14l2 2 4-4"/></svg></span>Qualité</div>
+  </nav>
+  <div class="main" id="appstage"></div>
+</div></div>
+
+<!-- PROJECT -->
+<div id="project"><div class="player">
+  <nav class="side">
+    <div class="bk" onclick="show('portfolio')">← Portefeuille</div>
+    <div class="grp">Projet</div>
+    <div class="navi on" data-v="dash"><span class="i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg></span>Tableau de bord</div>
+    <div class="grp">Outils</div>
+    <div class="navi" data-v="wbs"><span class="i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8l-9-5-9 5 9 5 9-5z"/><path d="M3 8v8l9 5 9-5V8"/><line x1="12" y1="13" x2="12" y2="21"/></svg></span>WBS</div>
+    <div class="navi" data-v="ev"><span class="i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M19 9l-5 5-4-4-4 4"/></svg></span>Valeur acquise</div>
+    <div class="navi" data-v="rq"><span class="i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="13" y2="16"/></svg></span>Rapports quotidiens</div>
+    <div class="navi" data-v="photos"><span class="i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.8"/><path d="M21 15l-5-5L5 21"/></svg></span>Photos</div>
+    <div class="navi" data-v="fp"><span class="i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M2 18h20"/><path d="M4 18v-4a8 8 0 0 1 16 0v4"/><path d="M10 5.3h4"/></svg></span>Forces propres</div>
+    <div class="navi" data-v="st"><span class="i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="13" y2="17"/></svg></span>Soumissions ST</div>
+    <div class="navi" data-v="ech"><span class="i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span>Jalons & masterplan</div>
+    <div class="navi" data-v="cout"><span class="i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1.5" x2="12" y2="22.5"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></span>Gestion des coûts</div>
+    <div class="navi" data-v="fact"><span class="i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="13" y2="17"/></svg></span>Facturation Cost +</div>
+    <div class="navi" data-v="marge"><span class="i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="5" x2="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.4"/><circle cx="17.5" cy="17.5" r="2.4"/></svg></span>Marge & rentabilité</div>
+    <div class="grp">Configuration</div>
+    <div class="navi" data-v="param"><span class="i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 8 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H2a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 3.6 8a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H8a1.65 1.65 0 0 0 1-1.51V2a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V8a1.65 1.65 0 0 0 1.51 1H22a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></span>Paramètres du projet</div>
+    <div class="grp">Liens externes</div>
+    <div class="navi" data-v="acc"><span class="i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg></span>ACC — Autodesk<span class="ext">↗</span></div>
+    <div class="navi" data-v="sp"><span class="i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19a4.5 4.5 0 0 0 .5-9 6 6 0 0 0-11.6-1.5A4 4 0 0 0 6.5 19z"/></svg></span>SharePoint<span class="ext">↗</span></div>
+  </nav>
+  <div class="main">
+    <div class="phead">
+      <div><div class="pnum2">23-003</div><h2>Camion avantage</h2></div>
+      <div class="maestro">Maestro 23-003<small>mandat lié</small></div>
+      <div class="meta"><span>Client : <b>Logistique Nord inc.</b></span><span>Type : <b>Cost + (coûtant majoré)</b></span><span>Début : <b>juin 2026</b></span><span>Fin : <b>déc. 2026</b></span><span>Montant : <b>2 419 902 $</b></span></div>
+    </div>
+    <div id="content"></div>
+  </div>
+</div></div>
+
+<script>
+const ph=(t,m,g)=>'<div class="pph"><div class="im" style="background:'+g+'"></div><span class="acc">ACC</span><div class="cap"><div class="t">'+t+'</div><div class="m">'+m+'</div></div></div>';
+const money=n=>Math.round(n).toLocaleString('fr-CA').replace(/ /g,' ')+' $';
+const k=n=>Math.round(n/1000)+' k$';
+const S={c:"Construction",p:"Préconstruction",a:"Avant-mandat",d:"Clôturé"};
+const projets=[
+ ["23-003","Camion avantage","Logistique Nord","Cost +","c","2 419 902 $","juin → déc. 2026"],
+ ["24-034","Faubourg Sagamie","Ville de Saguenay","Forfaitaire","p","5 140 000 $","sept. 2026 → 2027"],
+ ["25-012","Entrepôt Rive-Sud","Groupe Vallée","Cost +","c","3 310 000 $","mars → nov. 2026"],
+ ["25-018","Caserne 3 — Chicoutimi","Ville de Saguenay","Forfaitaire","c","6 870 000 $","janv. → déc. 2026"],
+ ["25-021","Clinique Jonquière","Santé Lac-St-Jean","Accompagnement","p","4 200 000 $","2026 → 2027"],
+ ["25-027","Garage municipal Alma","Ville d'Alma","Forfaitaire","c","2 980 000 $","avr. → oct. 2026"],
+ ["25-031","Usine Delisle — agrandissement","Agro-Delisle","Cost +","c","8 450 000 $","2026"],
+ ["26-002","École primaire La Baie","CSS des Rives","Accompagnement","p","11 200 000 $","2026 → 2028"],
+ ["26-008","Poste électrique St-Bruno","Hydro-partenaire","Cost +","p","3 760 000 $","2027"],
+ ["26-011","Résidence Rivière-du-Moulin","Habitations CG","Forfaitaire","c","6 100 000 $","2026 → 2027"],
+ ["2026-DEMO","Centre de distribution","Démonstration","Accompagnement","a","— à venir —","—"],
+ ["24-029","Pavillon universitaire — phase 2","UQAC","Forfaitaire","d","9 310 000 $","clôturé 2025"],
+ ["25-033","Caserne 2 — rénovation","Ville de Saguenay","Accompagnement","c","2 240 000 $","2026"],
+];
+function prows(l){return l.map(p=>`<div class="phrow" onclick="openP()"><div class="num">${p[0]}</div><div><div class="nm">${p[1]}</div><div class="mo">Maestro ${p[0]} · ${p[2]}</div></div><div>${p[3]}</div><div><span class="st"><span class="dot ${p[4]}"></span>${S[p[4]]}</span></div><div class="right">${p[5]}</div><div>${p[6]}</div></div>`).join('');}
+function render(l){document.getElementById('plist').innerHTML=prows(l);document.getElementById('count').textContent=l.length+' projets';}
+function filt(){const q=document.getElementById('q').value.toLowerCase();render(projets.filter(p=>(p[0]+' '+p[1]+' '+p[2]).toLowerCase().includes(q)));}
+function show(id){document.getElementById('portfolio').style.display=id==='portfolio'?'block':'none';if(id==='portfolio'){appNav('port');}document.getElementById('project').style.display=id==='project'?'block':'none';document.getElementById('crumb').innerHTML=id==='project'?'<a onclick="show(\'portfolio\')">Portefeuille</a> › 23-003 Camion avantage':'<a onclick="show(\'portfolio\')">Portefeuille</a>';window.scrollTo(0,0);}
+function openP(){show('project');nav('dash');}
+
+// ---- shared data ----
+const lots=[{nm:"Semelles",c:"03 x — Fondations",u:"PIED.L",q:350,b:32156,phys:.80,reel:24000,hr:[53,96]},
+{nm:"Murs de fondation",c:"03 x — Fondations",u:"PIED.L",q:350,b:52851,phys:.55,reel:31500,hr:[148,210]},
+{nm:"Dalle sur sol",c:"03 x — Dalle",u:"PIED²",q:9750,b:81166,phys:.20,reel:15000,hr:[]},
+{nm:"Excavation & drainage",c:"31 x — Terrassement",u:"PIED²",q:9750,b:107580,phys:1,reel:112000,hr:[]},
+{nm:"Structure d'acier",c:"05 x — Structure",u:"PIED²",q:30000,b:745105,phys:.10,reel:71000,hr:[]}];
+const periods=['M1','M2','M3','M4','M5','M6','M7','M8'];
+const PV=[51,153,265,387,560,744,907,1019].map(v=>v*1e3),EV=[30,90,170,253].map(v=>v*1e3),AC=[28,92,175,253].map(v=>v*1e3),dd=3;
+const BAC=PV[7],pvN=PV[dd],evN=EV[dd],acN=AC[dd],CV=evN-acN,SV=evN-pvN,CPI=evN/acN,SPI=evN/pvN;
+
+// ---- chart helpers ----
+function lineChart(w,h){const pl=52,pr=14,pt=16,pb=28,pw=w-pl-pr,ph=h-pt-pb,yMax=1.05e6,n=8;
+ const X=i=>pl+i*(pw/(n-1)),Y=v=>pt+ph*(1-v/yMax);let s='';
+ for(let g=0;g<=1.05e6;g+=25e4){const y=Y(g);s+=`<line x1="${pl}" y1="${y}" x2="${w-pr}" y2="${y}" stroke="#edf0e6"/><text x="${pl-7}" y="${y+4}" text-anchor="end" font-size="10" fill="#a7ad99">${g/1e3}k</text>`;}
+ periods.forEach((p,i)=>s+=`<text x="${X(i)}" y="${h-9}" text-anchor="middle" font-size="10" fill="#a7ad99">${p}</text>`);
+ s+=`<line x1="${X(dd)}" y1="${pt}" x2="${X(dd)}" y2="${pt+ph}" stroke="#c9930f" stroke-width="1.3" stroke-dasharray="3 3"/><text x="${X(dd)}" y="${pt-4}" text-anchor="middle" font-size="9.5" fill="#8a6a10" font-weight="700">aujourd'hui</text>`;
+ const ln=(a,c,d)=>`<polyline points="${a.map((v,i)=>X(i)+','+Y(v)).join(' ')}" fill="none" stroke="${c}" stroke-width="2.6" ${d?'stroke-dasharray="6 5"':''} stroke-linejoin="round"/>`+a.map((v,i)=>`<circle cx="${X(i)}" cy="${Y(v)}" r="3" fill="${c}"/>`).join('');
+ s+=ln(PV,'#9aa08f',1)+ln(EV,'#4e9f3d',0)+ln(AC,'#b5392f',0);
+ return `<svg viewBox="0 0 ${w} ${h}" style="width:100%;height:auto">${s}</svg>`;}
+function barsDecaiss(w,h){const pl=46,pr=10,pt=12,pb=26,pw=w-pl-pr,ph=h-pt-pb,yMax=22e4,n=8;
+ const inc=i=>i===0?PV[0]:PV[i]-PV[i-1];const bw=pw/n*.55;let s='';
+ for(let g=0;g<=22e4;g+=5e4){const y=pt+ph*(1-g/yMax);s+=`<line x1="${pl}" y1="${y}" x2="${w-pr}" y2="${y}" stroke="#edf0e6"/><text x="${pl-6}" y="${y+4}" text-anchor="end" font-size="9.5" fill="#a7ad99">${g/1e3}k</text>`;}
+ periods.forEach((p,i)=>{const x=pl+i*(pw/n)+pw/n/2;const v=inc(i);const y=pt+ph*(1-v/yMax);const fut=i>dd;
+  s+=`<rect x="${x-bw/2}" y="${y}" width="${bw}" height="${pt+ph-y}" rx="3" fill="${fut?'#cfe0c4':'#4e9f3d'}"/>`;
+  s+=`<text x="${x}" y="${h-8}" text-anchor="middle" font-size="9.5" fill="#a7ad99">${p}</text>`;});
+ return `<svg viewBox="0 0 ${w} ${h}" style="width:100%;height:auto">${s}</svg>`;}
+function gantt(w){const lh=30,pt=16,n=lots.length,h=pt+n*lh+24;const pl=140,pr=14,pw=w-pl-pr,W=14;
+ const plan=[[1,4],[4,8],[6,9],[8,12],[2,5]];const today=6;const X=wk=>pl+(wk-1)/(W)*pw;let s='';
+ for(let wk=1;wk<=W;wk+=2){const x=X(wk);s+=`<line x1="${x}" y1="${pt}" x2="${x}" y2="${pt+n*lh}" stroke="#eef0e6"/><text x="${x}" y="${pt+n*lh+16}" text-anchor="middle" font-size="9.5" fill="#a7ad99">S${wk}</text>`;}
+ s+=`<line x1="${X(today)}" y1="${pt-4}" x2="${X(today)}" y2="${pt+n*lh}" stroke="#c9930f" stroke-width="1.3" stroke-dasharray="3 3"/>`;
+ lots.forEach((l,i)=>{const y=pt+i*lh;const[a,b]=plan[i];const x1=X(a),x2=X(b);
+  s+=`<text x="12" y="${y+18}" font-size="12" fill="#343c31" font-weight="600">${l.nm.length>18?l.nm.slice(0,17)+'…':l.nm}</text>`;
+  s+=`<rect x="${x1}" y="${y+6}" width="${x2-x1}" height="15" rx="4" fill="#cfe0c4"/>`;
+  s+=`<rect x="${x1}" y="${y+6}" width="${(x2-x1)*l.phys}" height="15" rx="4" fill="#4e9f3d"/>`;});
+ return `<svg viewBox="0 0 ${w} ${h}" style="width:100%;height:auto">${s}</svg>`;}
+
+// ---- views ----
+function evTable(full){let b='',tB=0,tE=0,tR=0;lots.forEach(l=>{const ev=l.phys*l.b,cv=ev-l.reel,pvl=l.b*(full?Math.min(1,l.phys+.12):0);tB+=l.b;tE+=ev;tR+=l.reel;
+ b+=`<tr><td>${l.nm}</td><td>${money(l.b)}</td>${full?`<td>${money(pvl)}</td>`:''}<td>${money(ev)}</td><td>${money(l.reel)}</td><td class="${cv>=0?'pos':'neg'}">${(cv>=0?'+':'−')+money(Math.abs(cv))}</td><td>${Math.round(l.phys*100)} %</td></tr>`;});
+ b+=`<tr class="tot"><td>Total</td><td>${money(tB)}</td>${full?`<td>${money(pvN)}</td>`:''}<td>${money(tE)}</td><td>${money(tR)}</td><td class="${tE-tR>=0?'pos':'neg'}">${(tE-tR>=0?'+':'−')+money(Math.abs(tE-tR))}</td><td>${Math.round(tE/tB*100)} %</td></tr>`;
+ return `<table class="lt"><thead><tr><th>Lot-élément</th><th>Budget</th>${full?'<th>Val. planifiée</th>':''}<th>Val. acquise</th><th>Coût réel</th><th>Écart</th><th>Avanc.</th></tr></thead><tbody>${b}</tbody></table>`;}
+function hbars(){return lots.map(l=>`<div class="hbar"><span>${l.nm}</span><div class="t"><i style="width:${l.phys*100}%"></i></div><span class="p">${Math.round(l.phys*100)}%</span></div>`).join('');}
+
+const VIEWS={
+ photos:()=>`
+ <div class="viewtitle">Photos de chantier</div><div class="viewsub">Toutes les photos des rapports quotidiens, regroupées par date. Le fichier vit dans <b>ACC</b> (800_Photos); la galerie affiche la vignette — la bible reste complète dans le temps.</div>
+ <div class="kpis"><div class="kpi"><div class="l">Total photos</div><div class="v">214</div></div><div class="kpi"><div class="l">Rapports avec photos</div><div class="v">5</div></div><div class="kpi"><div class="l">Dernière</div><div class="v" style="font-size:15px">19 oct.</div></div><div class="kpi"><div class="l">Source</div><div class="v" style="font-size:15px">ACC &#8594; SharePoint</div></div></div>
+ <div class="datehd">19 octobre 2026 <span class="cnt">&middot; 61 photos &middot; rapport de David Girard</span></div>
+ <div class="pgal">${ph("Coulée empattements","zone 6.1 &middot; 10h25","linear-gradient(135deg,#3a4a2e,#5a6b3c)")}${ph("Coffrage des murs","zone 6.1 &middot; 11h40","linear-gradient(135deg,#4a4230,#6b5a3c)")}${ph("Armature en place","zone 6.2 &middot; 13h15","linear-gradient(135deg,#4a3a2e,#6b4f3c)")}${ph("Vue d'ensemble","am &middot; 09h40","linear-gradient(135deg,#2e3a4a,#3c556b)")}${ph("Accès chantier","sécurité &middot; 07h10","linear-gradient(135deg,#2e4a40,#3c6b5a)")}${ph("Fin de journée","zone 6.2 &middot; 16h05","linear-gradient(135deg,#3a2e42,#553c6b)")}</div>
+ <div class="datehd">16 octobre 2026 <span class="cnt">&middot; 29 photos</span></div>
+ <div class="pgal">${ph("Décoffrage murs","zone 6.1 &middot; 08h30","linear-gradient(135deg,#44402e,#67603c)")}${ph("Drain français","zone 6.2 &middot; 10h00","linear-gradient(135deg,#2e424a,#3c5f6b)")}${ph("Membrane fondation","zone 6.1 &middot; 14h20","linear-gradient(135deg,#34304a,#4c466b)")}${ph("Remblayage","zone 6.2 &middot; 15h10","linear-gradient(135deg,#3f4a2e,#5f6b3c)")}</div>
+ <div class="datehd">15 octobre 2026 <span class="cnt">&middot; 51 photos &middot; non-conformité signalée</span></div>
+ <div class="pgal">${ph("Dalle &mdash; treillis","zone 6.3 &middot; 09h15","linear-gradient(135deg,#2e4a3a,#3c6b55)")}${ph("Non-conformité","ancrage &middot; 11h00","linear-gradient(135deg,#4a302e,#6b3f3c)")}${ph("Pompe à béton","zone 6.3 &middot; 13h40","linear-gradient(135deg,#44442e,#67673c)")}${ph("Finition dalle","zone 6.3 &middot; 15h50","linear-gradient(135deg,#2e3a4a,#3c556b)")}</div>
+`,
+
+ dash:()=>`
+  <div class="viewtitle">Tableau de bord</div><div class="viewsub">Vue d'ensemble du projet.</div>
+  <div class="kpis">
+   <div class="kpi"><div class="l">Montant du contrat</div><div class="v">2 419 902 $</div></div>
+   <div class="kpi"><div class="l">Réel engagé (MOD)</div><div class="v">197 184 $</div><div class="n">Maestro à date</div></div>
+   <div class="kpi"><div class="l">Avancement (VA)</div><div class="v g">25 %</div><div class="n">valeur acquise</div></div>
+   <div class="kpi"><div class="l">IPC / IPE</div><div class="v"><span class="g">1,00</span> / <span class="r">0,65</span></div><div class="n">coût / échéance</div></div>
+  </div>
+  <div class="sect">Avancement & décaissement</div>
+  <div class="grid2">
+   <div class="panel"><h3>Courbe VP / VA / CR</h3><div class="ph">Cumulatif. Ligne « aujourd'hui ».</div>${lineChart(560,290)}<div class="legend"><span><i style="border-color:#9aa08f;border-top-style:dashed"></i>VP</span><span><i style="border-color:#4e9f3d"></i>VA</span><span><i style="border-color:#b5392f"></i>CR</span></div></div>
+   <div class="panel"><h3>Décaissement mensuel</h3><div class="ph">Prévu par mois (clair = à venir).</div>${barsDecaiss(400,290)}</div>
+  </div>
+  <div class="sect">Par lot-élément</div>
+  <div class="grid2">
+   <div class="panel"><h3>Détail des coûts</h3><div class="ph">Budget, valeur acquise, réel, écart.</div>${evTable(false)}</div>
+   <div class="panel"><h3>Avancement physique</h3><div class="ph">Quantité posée / totale.</div>${hbars()}</div>
+  </div>`,
+ ev:()=>`
+  <div class="viewtitle">Valeur acquise (EVM)</div><div class="viewsub">La performance du projet : VP / VA / CR, écarts (CV, SV) et indices (IPC, IPE), au projet et par lot. Le budget et les réels (coûtant&nbsp;&rarr;&nbsp;vendant) viennent de <a onclick="nav('cout')" style="color:var(--green-dk);cursor:pointer;font-weight:600">Gestion des coûts</a>&nbsp;; l'avancement physique, des <a onclick="nav('rq')" style="color:var(--green-dk);cursor:pointer;font-weight:600">rapports quotidiens</a>.</div>
+  <div class="vcards">
+   <div class="vcard ok"><div class="l">Écart de coût (CV)</div><div class="v" style="color:var(--green-dk)">− 383 $</div><div class="n">quasi nul au global</div></div>
+   <div class="vcard bad"><div class="l">Écart d'échéance (SV)</div><div class="v" style="color:var(--red)">− 134 000 $</div><div class="n">en retard</div></div>
+   <div class="vcard ok"><div class="l">IPC — coût</div><div class="v" style="color:var(--green-dk)">1,00</div><div class="n">sur budget</div></div>
+   <div class="vcard bad"><div class="l">IPE — échéance</div><div class="v" style="color:var(--red)">0,65</div><div class="n">avance 35% trop lent</div></div>
+  </div>
+  <div class="panel" style="margin-bottom:14px"><h3>Courbe VP / VA / CR</h3><div class="ph">Le total à l'équilibre (CV≈0) cache des écarts opposés par lot — voir le tableau.</div>${lineChart(880,300)}<div class="legend"><span><i style="border-color:#9aa08f;border-top-style:dashed"></i>VP — valeur planifiée</span><span><i style="border-color:#4e9f3d"></i>VA — valeur acquise</span><span><i style="border-color:#b5392f"></i>CR — coût réel</span></div></div>
+  <div class="panel"><h3>EVM par lot-élément</h3><div class="ph">Excavation −4 420 $ et Structure d'acier +3 511 $ : deux écarts opposés qu'un total à l'équilibre masque.</div>${evTable(true)}</div>`,
+ wbs:()=>`
+ <div class="viewtitle">WBS — structure & lots</div><div class="viewsub">Les lots-éléments, par phase &rarr; secteur &rarr; discipline (Annexe P-06). Les codes MasterFormat-opération s'y mappent.</div>
+ <div class="subtabs"><div class="subtab">Structure</div><div class="subtab on">Lots</div><div class="subtab">Bibliothèque</div><div class="subtab">MasterFormat</div><div class="subtab">Mapping</div><div class="subtab">Auto-mapping</div><div class="subtab">Import source</div><div class="subtab">Budget</div><div class="subtab">Échéancier</div><div class="subtab">Étapes</div></div>
+ <div class="kpis"><div class="kpi"><div class="l">Secteurs</div><div class="v">1</div></div><div class="kpi"><div class="l">Lots</div><div class="v">5</div></div><div class="kpi"><div class="l">Codes MasterFormat</div><div class="v">107</div></div><div class="kpi"><div class="l">Lots non mappés</div><div class="v g">0</div></div></div>
+ <div class="stp"><div class="s done"><div class="n">&check;</div>Structure</div><div class="ln"></div><div class="s done"><div class="n">&check;</div>Lots</div><div class="ln"></div><div class="s done"><div class="n">&check;</div>MasterFormat</div><div class="ln"></div><div class="s done"><div class="n">&check;</div>Mapping</div></div>
+ <div class="tree">
+  <div class="tph"><span class="tag2 ph">Phase</span> 2 &mdash; Construction</div>
+  <div class="tsec"><span class="tag2 sec">Secteur</span> 00 &mdash; Global</div>
+  <div class="tdis"><span class="tag2 dis">06</span> Fondations</div>
+  <div class="tlot"><span class="codep">2.00.06.01</span><span>Semelles</span><span class="u">PIED.L</span><span class="b">32 156 $</span><span class="np">planifié</span></div>
+  <div class="tlot"><span class="codep">2.00.06.02</span><span>Murs de fondation</span><span class="u">PIED.L</span><span class="b">52 851 $</span><span class="np">planifié</span></div>
+  <div class="tlot"><span class="codep">2.00.06.03</span><span>Dalle sur sol</span><span class="u">PIED&sup2;</span><span class="b">81 166 $</span><span class="np">planifié</span></div>
+  <div class="tlot"><span class="codep">2.00.06.04</span><span>Excavation &amp; drainage</span><span class="u">PIED&sup2;</span><span class="b">107 580 $</span><span class="np">planifié</span></div>
+  <div class="tdis"><span class="tag2 dis">07</span> Structure</div>
+  <div class="tlot"><span class="codep">2.00.07.01</span><span>Structure d'acier (toiture)</span><span class="u">PIED&sup2;</span><span class="b">745 105 $</span><span class="np">planifié</span></div>
+ </div>
+ <div class="panel" style="margin-top:14px"><div class="ph" style="margin:0">Rappel standard : un lot = un élément mesurable; le code de base <b>2.00.06.01</b> = phase.secteur.discipline.lot. La quantité mesurable vient du code-repère de l'estimation (ex. Murs &rarr; coffrage = 350 PIED.L).</div></div>
+`,
+ ech:()=>`
+ <div class="viewtitle">Jalons & masterplan (LPS)</div>
+ <div class="viewsub">L'échéancier détaillé vit dans le <b>Last Planner System</b>, pas ici. Cette vue lit du masterplan les <b>jalons et phases</b> qui cadrent les phases WBS et la <b>baseline de valeur planifiée (VP)</b> de l'avancement.</div>
+ <div class="sect">Jalons du masterplan</div>
+ <div class="panel"><table class="lt"><thead><tr><th style="text-align:left">Phase / jalon</th><th>Date cible</th><th>Statut</th></tr></thead><tbody>
+  <tr><td style="text-align:left">Mobilisation chantier</td><td>2026-06-15</td><td><span class="pill" style="background:var(--green-lt);color:var(--green-dk)">Terminé</span></td></tr>
+  <tr><td style="text-align:left">Fondations coulées</td><td>2026-08-30</td><td><span class="pill" style="background:var(--green-lt);color:var(--green-dk)">Terminé</span></td></tr>
+  <tr><td style="text-align:left">Structure d'acier montée</td><td>2026-10-30</td><td><span class="pill" style="background:var(--blue-lt);color:#2a5580">En cours</span></td></tr>
+  <tr><td style="text-align:left">Enveloppe fermée (hors d'eau / air)</td><td>2026-12-15</td><td><span class="pill" style="background:#f4f6ef;color:var(--muted)">À venir</span></td></tr>
+  <tr><td style="text-align:left">Livraison</td><td>2026-12-20</td><td><span class="pill" style="background:#f4f6ef;color:var(--muted)">À venir</span></td></tr>
+ </tbody></table></div>
+ <div class="linkcard" style="border-left:3px solid var(--green);margin-top:14px"><div class="i"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div><div><div class="tn">Ouvrir le masterplan — Last Planner System</div><div class="td">Pull planning, lookahead 6 semaines, plan hebdo & PPC. Source de vérité de la planification.</div></div><div class="go">Ouvrir ↗</div></div>
+ <div class="panel" style="margin-top:12px"><div class="ph" style="margin:0"><b>À venir — module LPS maison.</b> Digitalisation du Last Planner (en remplacement de MS Project) : contraintes, engagements hebdomadaires, PPC et raisons de non-complétion. Prototype dédié en préparation.</div></div>`,
+ rq:()=>`
+ <div class="viewtitle">Rapports journaliers</div><div class="viewsub">La bible du projet. Chaque rapport alimente l'<b>avancement par lot WBS</b> et se verrouille une fois la journée terminée; l'approbation hebdomadaire valide les feuilles de temps.</div>
+ <div class="subtabs"><div class="subtab on">Rapports journaliers</div><div class="subtab">Contrats</div><div class="subtab">Approbations hebdomadaires</div></div>
+ <div class="rqc">
+  <div class="c"><div class="n2" style="background:var(--amber)">2</div><div class="lbl">Ouvert</div></div>
+  <div class="c"><div class="n2" style="background:var(--blue)">4</div><div class="lbl">Journée terminée</div></div>
+  <div class="c"><div class="n2" style="background:#6a4fb0">1</div><div class="lbl">En attente d'approbation</div></div>
+  <div class="c"><div class="n2" style="background:var(--green)">2</div><div class="lbl">Approuvé</div></div>
+ </div>
+ <div class="panel"><table class="lt"><thead><tr><th>Date</th><th>Créé par</th><th>État</th><th>Travailleurs</th><th>Photos</th><th>Problèmes</th><th>Avanc. WBS</th><th>Actions</th></tr></thead><tbody>
+  <tr><td>2026-10-20</td><td style="text-align:left;color:var(--muted)">David Girard</td><td><span class="badge ouv">Ouvert</span></td><td>10</td><td>0</td><td>0</td><td>&mdash;</td><td>&#128065; &#128196;</td></tr>
+  <tr><td>2026-10-19</td><td style="text-align:left;color:var(--muted)">David Girard</td><td><span class="badge ter">Journée terminée</span></td><td>10</td><td>61</td><td>0</td><td class="pos">+3,4 %</td><td>&#128065; &#128196;</td></tr>
+  <tr><td>2026-10-16</td><td style="text-align:left;color:var(--muted)">David Girard</td><td><span class="badge app">Approuvé</span></td><td>9</td><td>29</td><td>0</td><td class="pos">+2,8 %</td><td>&#128065; &#128196;</td></tr>
+  <tr><td>2026-10-15</td><td style="text-align:left;color:var(--muted)">David Girard</td><td><span class="badge app">Approuvé</span></td><td>9</td><td>51</td><td>1</td><td class="pos">+1,9 %</td><td>&#128065; &#128196;</td></tr>
+  <tr><td>2026-10-14</td><td style="text-align:left;color:var(--muted)">David Girard</td><td><span class="badge att">En attente</span></td><td>8</td><td>33</td><td>0</td><td class="pos">+2,2 %</td><td>&#128065; &#128196;</td></tr>
+  <tr><td>2026-10-13</td><td style="text-align:left;color:var(--muted)">David Girard</td><td><span class="badge ter">Journée terminée</span></td><td>9</td><td>40</td><td>0</td><td class="pos">+2,6 %</td><td>&#128065; &#128196;</td></tr>
+  </tbody></table></div>
+ <div class="panel" style="margin-top:14px"><div class="ph" style="margin:0">Différence avec un rapport générique : la colonne <b>Avancement WBS</b> vient des quantités posées par lot saisies dans le rapport. C'est ce qui ferme la boucle vers la valeur acquise — ce qu'un outil de rapport seul ne fait pas.</div></div>
+`,
+ fp:()=>`
+  <div class="viewtitle">Forces propres affectées</div><div class="viewsub">Effectif nominal sur le projet, tiré de l'affectation du surintendant (Ma Place RH).</div>
+  <div class="kpis"><div class="kpi"><div class="l">Présents aujourd'hui</div><div class="v">4</div></div><div class="kpi"><div class="l">Heures CG (jour)</div><div class="v">38 h</div></div><div class="kpi"><div class="l">Capacité semaine</div><div class="v">640 h</div><div class="n">16 × 40 h</div></div><div class="kpi"><div class="l">Embauches prévues</div><div class="v g">+2</div><div class="n">dans 3 sem.</div></div></div>
+  <div class="panel" style="margin-top:14px"><table class="lt"><thead><tr><th>Travailleur</th><th>Rôle</th><th>Lot affecté</th><th>Heures</th></tr></thead><tbody>
+  ${[['Marc Tremblay','Charpentier','Coffrage','10 h'],['Dave Gagné','Opérateur','Remblayage','10 h'],['Steeve Bouchard','Journalier','Drain','9 h'],['Yannick Côté','Charpentier','Bétonnage','9 h']].map(r=>`<tr><td>${r[0]}</td><td style="text-align:left;color:var(--muted)">${r[1]}</td><td style="text-align:left">${r[2]}</td><td>${r[3]}</td></tr>`).join('')}
+  </tbody></table></div>`,
+ st:()=>`
+ <div class="viewtitle">Analyse des soumissions ST — assistée par l'IA</div>
+ <div class="viewsub">Outil : l'IA lit les soumissions reçues (PDF, Excel), les ramène au même périmètre, détecte exclusions et écarts de portée, puis nivelle les prix par lot. Vous tranchez.</div>
+ <div class="empty" style="margin-bottom:12px">Vue à venir dans l'application — l'outil existe déjà en prototype.</div>
+ <a href="https://pagau-cg.github.io/analyse-soumission/" target="_blank" rel="noopener" class="linkcard" style="text-decoration:none;color:inherit">
+   <div class="i"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 4.8L18.8 9.7 14 11.6 12 16.4 10 11.6 5.2 9.7 10.1 7.8z"/><path d="M18.5 14.5l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8z"/></svg></div>
+   <div><div class="tn">Analyse des soumissions ST par l'IA</div><div class="td">Prototype existant · pagau-cg.github.io/analyse-soumission</div></div>
+   <div class="go">Ouvrir le prototype &#8599;</div>
+ </a>`,
+ cout:()=>{
+ const money=v=>(v===undefined||v===null||v==='')?'':Number(v).toLocaleString('fr-CA',{minimumFractionDigits:2,maximumFractionDigits:2});
+ const mode=coutState.mode, dense=coutState.dense;
+ const NUM=['bi','tr','mod','brev','att','bproj','dinit','res','cprev','creel','adj','cat','dfp','var','varp','mcf'];
+ const cols=[
+  {id:'code',lab:'Code budgétaire',frozen:1,sort:1},
+  {id:'nom',lab:'Nom du budget',frozen:2},
+  {id:'fourn',lab:'Contrat du Fournisseur',txt:1,gs:1},
+  {id:'base',lab:'Base prévisionnelle',txt:1},
+  {id:'bi',lab:'Budget initial',gs:1},
+  {id:'tr',lab:'Transferts budgétaires internes'},
+  {id:'mod',lab:'Modifications du propriétaire'},
+  {id:'brev',lab:'Budget révisé'},
+  {id:'att',lab:'Modifications du propriétaire en attente'},
+  {id:'bproj',lab:'Budget prévisionnel'},
+  {id:'dinit',lab:'Débours initial',gs:1},
+  {id:'res',lab:'Réserves'},
+  {id:'cprev',lab:'Coût prévu'},
+  {id:'creel',lab:'Coût réel'},
+  {id:'adj',lab:'Rajustements des prévisions'},
+  {id:'cat',lab:'Coût prévu à terminer'},
+  {id:'dfp',lab:'Débours final prévu'},
+  {id:'var',lab:'Variation',gs:1},
+  {id:'varp',lab:'Variation des prévisions'},
+  {id:'pct',lab:'Terminé (%)'},
+  {id:'mcf',lab:'Montant final du Contrat principal',gs:1}];
+ const leaves=[
+  {mf:'01 00 01.01',wbs:'1.00.01.01',nom:'Surintendant général',fourn:'Surindentant',bi:12500,dfp:1250,var:11250},
+  {mf:'03 33 00.01',wbs:'2.00.03.01',nom:'Béton des semelles',bi:45000,dfp:44000,var:1000},
+  {mf:'03 33 00.02',wbs:'2.00.03.02',nom:'Béton des murs de fondation',bi:68000,dfp:70000,var:-2000},
+  {mf:'03 30 00.01',wbs:'2.00.03.03',nom:'Dalle sur sol',bi:82000,dfp:82000,var:0},
+  {mf:'04 05 00.03',wbs:'2.00.04.01',nom:'Maçonnerie de briques',fourn:'Contrat maconnerie',bi:250000,dfp:250000,var:0},
+  {mf:'05 12 23.01',wbs:'2.00.05.01',nom:'Acier de construction pour bâtiments',bi:125000,dfp:125000,var:0},
+  {mf:'07 21 26.01',wbs:'3.00.07.01',nom:'Couverture à membrane EPDM',bi:75000,dfp:75000,var:0}];
+ leaves.forEach(l=>{l.brev=l.bi;l.bproj=l.bi;l.dinit=l.dfp;l.res=l.dfp;l.cprev=l.dfp;l.cat=l.dfp;l.mcf=l.dfp;if(l.varp===undefined)l.varp=l.var;});
+ const mfDiv={'01':'Conditions générales','03':'Béton','04':'Maçonnerie','05':'Métaux','07':'Ouvertures & étanchéité'};
+ const mfSec={'01 00 01':'Surintendance','03 33 00':'Béton coulé en place','03 30 00':'Dalles','04 05 00':'Maçonnerie','05 12 23':'Acier de construction','07 21 26':'Membranes de couverture'};
+ const wPh={'1':'Phase 1 — Généralités','2':'Phase 2 — Structure & enveloppe','3':'Phase 3 — Toiture'};
+ const wDi={'01':'Surintendance','03':'Béton','04':'Maçonnerie','05':'Acier','07':'Toiture'};
+ const parentsFor=l=>{if(mode==='mf'){const d=l.mf.slice(0,2),sec=l.mf.split('.')[0];
+    return [{id:'d'+d,code:d,lab:mfDiv[d]||d,lvl:0},{id:'s'+sec,code:sec,lab:mfSec[sec]||sec,lvl:1}];}
+   const p=l.wbs.split('.');return [{id:'wp'+p[0],code:p[0],lab:wPh[p[0]]||p[0],lvl:0},{id:'wp'+p[0]+'d'+p[2],code:p[2],lab:wDi[p[2]]||p[2],lvl:1}];};
+ const tree={children:[],map:{}};coutState._parents=[];
+ leaves.forEach(l=>{let cur=tree;parentsFor(l).forEach(p=>{
+     if(!cur.map[p.id]){const nd=Object.assign({},p,{children:[],map:{},sum:{},isParent:true});cur.map[p.id]=nd;cur.children.push(nd);coutState._parents.push(p.id);}
+     const nd=cur.map[p.id];NUM.forEach(k=>{if(typeof l[k]==='number')nd.sum[k]=(nd.sum[k]||0)+l[k];});cur=nd;});
+   cur.children.push({isParent:false,code:(mode==='mf'?l.mf:l.wbs),lab:l.nom,lvl:2,data:l});});
+ const disp=[];(function walk(n){n.children.forEach(ch=>{disp.push(ch);if(ch.isParent&&!coutState.collapsed[ch.id])walk(ch);});})(tree);
+ const totalData={};leaves.forEach(l=>NUM.forEach(k=>{if(typeof l[k]==='number')totalData[k]=(totalData[k]||0)+l[k];}));
+ const tcell=(c,d,m)=>{let cls=c.frozen?('f'+c.frozen):'';if(c.gs)cls+=' gs';
+   if(c.id==='code'){cls+=' tx';const pad=8+m.lvl*16;
+     const chev=m.isParent?('<span class="chev" onclick="coutTog(\''+m.id+'\')">'+(coutState.collapsed[m.id]?'▸':'▾')+'</span>'):'<span class="chev"></span>';
+     return '<td class="'+cls.trim()+'" style="padding-left:'+pad+'px">'+chev+(m.code||'')+'</td>';}
+   if(c.id==='nom'){return '<td class="'+cls.trim()+'">'+(m.isParent?('<b>'+m.lab+'</b>'):('<span class="bn">'+m.lab+'</span>'))+'</td>';}
+   if(c.txt){cls+=' tx';return '<td class="'+cls.trim()+'">'+((d&&d[c.id])||'')+'</td>';}
+   cls+=' nx';let v=d?d[c.id]:undefined;
+   if((c.id==='var'||c.id==='varp')&&typeof v==='number'&&v!==0)cls+=(v>0?' pos':' neg');
+   return '<td class="'+cls.trim()+'">'+money(v)+'</td>';};
+ const rowsHtml=disp.map(n=>{const m={code:n.code,lab:n.lab,lvl:n.lvl,isParent:n.isParent,id:n.id};const d=n.isParent?n.sum:n.data;
+   const rc=n.isParent?('rowp'+n.lvl):'rowleaf';return '<tr class="'+rc+'">'+cols.map(c=>tcell(c,d,m)).join('')+'</tr>';}).join('');
+ const totRow='<tr class="totrow">'+cols.map((c,i)=>{if(i===0)return '<td class="f1 tx"><span class="chev"></span>Total projet</td>';if(i===1)return '<td class="f2"></td>';if(c.txt)return '<td class="'+(c.gs?'gs ':'')+'tx"></td>';let v=totalData[c.id];let cls=(c.gs?'gs ':'')+'nx';if((c.id==='var'||c.id==='varp')&&typeof v==='number'&&v!==0)cls+=(v>0?' pos':' neg');return '<td class="'+cls+'">'+money(v)+'</td>';}).join('')+'</tr>';
+ const codeLab=mode==='mf'?'Code budgétaire':'Code WBS';
+ const groups=[{n:'Général',span:2,f:1},{n:'Général',span:2,gs:1},{n:'Budget',span:6,gs:1},{n:'Coût',span:7,gs:1},{n:'Variation',span:3,gs:1},{n:'Analyse des frais',span:1,gs:1}];
+ const grpRow='<tr class="grp">'+groups.map(g=>'<th colspan="'+g.span+'" class="'+(g.f?'f1g':'')+(g.gs?' gs':'')+'">'+g.n+'</th>').join('')+'</tr>';
+ const colRow='<tr class="col">'+cols.map(c=>{let cls=c.frozen?('f'+c.frozen):'';if(c.gs)cls+=' gs';if(!c.txt&&c.id!=='code'&&c.id!=='nom')cls+=' nx';const lab=c.id==='code'?codeLab:c.lab;return '<th class="'+cls.trim()+'">'+lab+(c.sort?' <span class="sa">↑</span>':'')+'</th>';}).join('')+'</tr>';
+ const seg=(cur,opts)=>'<div class="seg">'+opts.map(o=>'<button class="'+(cur===o.v?'on':'')+'" onclick="'+o.fn+'">'+o.l+'</button>').join('')+'</div>';
+ return `
+ <div class="viewtitle">Gestion des coûts</div>
+ <div class="viewsub">Vue budgétaire du projet &mdash; rendu aligné sur ACC. Réels importés de <b>Maestro</b>&nbsp;; le <b>Coût réel</b> reçoit le traitement coûtant&nbsp;&rarr;&nbsp;vendant. Code et nom figés&nbsp;; replie/déploie par niveau. <a onclick="nav('ev')" style="color:var(--green-dk);cursor:pointer;font-weight:600">Performance &amp; valeur acquise &rarr;</a></div>
+ <style>
+ .coutbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:2px 0 10px;font-family:'Artifakt Element','Inter',system-ui,sans-serif}
+ .coutbar .lab{font-size:11px;color:#8a8f86;font-weight:600;margin-right:-4px}
+ .coutbar .seg{display:inline-flex;border:1px solid #d9ddd3;border-radius:8px;overflow:hidden;background:#fff}
+ .coutbar .seg button{border:none;background:var(--surface);padding:6px 12px;font-size:12px;color:#5c6159;cursor:pointer;font-family:inherit}
+ .coutbar .seg button.on{background:var(--green);color:#fff;font-weight:600}
+ .coutbar .spacer{flex:1}
+ .coutbar .lnk{border:none;background:none;color:#1a6fd4;font-size:12px;cursor:pointer;font-family:inherit;padding:6px 4px}
+ .coutbar .lnk:hover{text-decoration:underline}
+ .accwrap{overflow-x:auto;border:1px solid #e6e8e4;border-radius:10px;background:var(--surface);font-family:'Artifakt Element','Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;box-shadow:0 1px 2px rgba(20,30,15,.04)}
+ table.costtbl{border-collapse:separate;border-spacing:0;width:100%;font-size:12px;color:#2b2f2a}
+ table.costtbl th,table.costtbl td{padding:9px 14px;border-bottom:1px solid #eef0ec;text-align:left;white-space:nowrap;vertical-align:middle}
+ .accwrap.dense table.costtbl th,.accwrap.dense table.costtbl td{padding-top:3px;padding-bottom:3px;font-size:11px}
+ table.costtbl thead th{background:#f6f7f8;color:#5c6159;font-weight:600;font-size:11.5px}
+ table.costtbl thead tr.grp th{color:#9a9f94;font-weight:600;text-align:center;border-bottom:1px solid #e6e8e4}
+ table.costtbl thead tr.col th{vertical-align:bottom;white-space:normal;min-width:116px;line-height:1.25;border-bottom:1px solid #dfe1dc}
+ table.costtbl td.nx,table.costtbl th.nx{text-align:right;font-variant-numeric:tabular-nums}
+ table.costtbl .gs{border-left:1px solid #e9ebe7}
+ table.costtbl .bn{color:#1a6fd4}
+ table.costtbl .sa{color:#b4b9ab;font-weight:400}
+ table.costtbl .chev{display:inline-block;width:14px;color:#8a8f86;cursor:pointer;font-size:10px;user-select:none}
+ table.costtbl tr.totrow td{font-weight:700;background:#fafbfa;border-bottom:1px solid #dfe1dc;color:#20261f}
+ table.costtbl tr.rowp0 td{background:#edf1e9;font-weight:700;color:#20261f}
+ table.costtbl tr.rowp1 td{background:#f5f8f2;font-weight:600}
+ table.costtbl td.pos{color:#2f7d32}
+ table.costtbl td.neg{color:#b5392f}
+ table.costtbl .f1{position:sticky;left:0;z-index:2;width:120px;min-width:120px;max-width:120px}
+ table.costtbl .f2{position:sticky;left:120px;z-index:2;width:230px;min-width:230px;max-width:230px;box-shadow:6px 0 8px -6px rgba(0,0,0,.14)}
+ table.costtbl td.f1,table.costtbl td.f2{background:#fff}
+ table.costtbl thead .f1,table.costtbl thead .f2,table.costtbl .f1g{background:#f6f7f8;z-index:5}
+ table.costtbl .f1g{position:sticky;left:0}
+ table.costtbl tr.totrow td.f1,table.costtbl tr.totrow td.f2{background:#fafbfa}
+ table.costtbl tr.rowp0 td.f1,table.costtbl tr.rowp0 td.f2{background:#edf1e9}
+ table.costtbl tr.rowp1 td.f1,table.costtbl tr.rowp1 td.f2{background:#f5f8f2}
+ table.costtbl tbody tr.rowleaf:hover td{background:#f3f8ff}
+ table.costtbl tbody tr.rowleaf:hover td.f1,table.costtbl tbody tr.rowleaf:hover td.f2{background:#f3f8ff}
+ </style>
+ <div class="coutbar">
+   <span class="lab">Codification</span>
+   ${seg(mode,[{v:'mf',l:'Budgétaire',fn:"coutMode('mf')"},{v:'wbs',l:'WBS',fn:"coutMode('wbs')"}])}
+   <span class="lab">Densité</span>
+   ${seg(dense,[{v:false,l:'Confortable',fn:'coutDense(false)'},{v:true,l:'Compact',fn:'coutDense(true)'}])}
+   <span class="spacer"></span>
+   <button class="lnk" onclick="coutAll(false)">Tout déployer</button>
+   <button class="lnk" onclick="coutAll(true)">Tout réduire</button>
+ </div>
+ <div class="accwrap${dense?' dense':''}"><table class="costtbl"><thead>${grpRow}${colRow}</thead><tbody>${totRow}${rowsHtml}</tbody></table></div>
+ <div style="color:#9aa08f;font-size:11.5px;margin-top:9px">Hiérarchie ${mode==='mf'?'MasterFormat : division &rarr; section &rarr; sous-code':'WBS : phase &rarr; discipline &rarr; lot'}. Les parents totalisent leurs enfants. Lignes béton illustratives pour montrer le repli par niveau.</div>
+ `},
+  fact:()=>`
+ <div class="viewtitle">Demande de paiement — Cost +</div><div class="viewsub">Du budget et des réels Maestro à la demande : balancer, imprimer en PDF, archiver. Période 11/2026 · demande n° 3.</div>
+ <div class="sect">Pipeline de la période</div>
+ <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:4px">
+  <div class="vcard ok" style="flex:1;min-width:140px"><div class="l">1 · Budget initial</div><div class="v" style="font-size:14px;color:var(--green-dk)">✓ Estimation</div><div class="n">source WBS</div></div>
+  <div class="vcard ok" style="flex:1;min-width:140px"><div class="l">2 · Réels Maestro</div><div class="v" style="font-size:14px;color:var(--green-dk)">✓ 11/2026</div><div class="n">coûtant + vendant</div></div>
+  <div class="vcard ok" style="flex:1;min-width:140px"><div class="l">3 · Balancement</div><div class="v" style="font-size:14px;color:var(--green-dk)">✓ au vert</div><div class="n">5 catégories OK</div></div>
+  <div class="vcard warn" style="flex:1;min-width:140px"><div class="l">4 · Demande</div><div class="v" style="font-size:14px;color:#8a6a10">à émettre</div><div class="n">PDF</div></div>
+ </div>
+ <div class="grid2">
+  <div class="panel"><h3>Balancement par catégorie</h3><div class="ph">Cumul Maestro (vendant) porté à la demande. Tous les voyants au vert = la demande peut partir — sinon l'écart est nommé, pas caché.</div>
+   <table class="lt"><thead><tr><th>Catégorie</th><th>Montant</th><th>Statut</th></tr></thead><tbody>
+   <tr><td>Main-d'œuvre</td><td>85 000 $</td><td><span class="pill">✓ OK</span></td></tr>
+   <tr><td>Matériaux</td><td>42 000 $</td><td><span class="pill">✓ OK</span></td></tr>
+   <tr><td>Équipement</td><td>12 000 $</td><td><span class="pill">✓ OK</span></td></tr>
+   <tr><td>Sous-traitants</td><td>48 000 $</td><td><span class="pill">✓ OK</span></td></tr>
+   <tr><td>Divers</td><td>3 000 $</td><td><span class="pill">✓ OK</span></td></tr>
+   <tr class="tot"><td>Sous-total (avant majoration)</td><td>190 000 $</td><td></td></tr>
+   </tbody></table></div>
+  <div class="panel"><h3>Décompte de la demande</h3><div class="ph">Majoration contractuelle, retenue et taxes.</div>
+   <table class="lt"><tbody>
+   <tr><td>Sous-total</td><td>190 000 $</td></tr>
+   <tr><td>Majoration contractuelle (7,5 %)</td><td>14 250 $</td></tr>
+   <tr><td>Retenue (10 %)</td><td class="neg">&minus; 20 425 $</td></tr>
+   <tr><td>TPS + TVQ</td><td>27 528 $</td></tr>
+   <tr class="tot"><td>Total à payer</td><td>211 353 $</td></tr>
+   </tbody></table>
+   <button style="margin-top:14px;width:100%;background:var(--green);color:#fff;border:none;border-radius:10px;padding:12px;font-size:14px;font-weight:800;cursor:pointer">&#128424;&#65039; Générer et imprimer le PDF</button>
+  </div>
+ </div>
+ <div class="sect">Historique — demandes archivées (par période)</div>
+ <div class="panel">
+  <div class="rep"><div class="d">n&deg; 3 &middot; nov. 2026</div><div><div>Demande courante</div><div class="m">en cours de balancement</div></div><div class="m">211 353 $</div><div><span class="pill" style="background:var(--amber-lt);color:#8a6a10">à émettre</span></div></div>
+  <div class="rep"><div class="d">n&deg; 2 &middot; oct. 2026</div><div><div>Demande de paiement</div><div class="m">PDF &middot; archivé &middot; verrouillé</div></div><div class="m">198 400 $</div><div><span class="pill">&#128196; PDF</span></div></div>
+  <div class="rep"><div class="d">n&deg; 1 &middot; sept. 2026</div><div><div>Demande de paiement</div><div class="m">PDF &middot; archivé &middot; verrouillé</div></div><div class="m">176 200 $</div><div><span class="pill">&#128196; PDF</span></div></div>
+ </div>
+`,
+ marge:()=>`<div class="viewtitle">Marge & rentabilité</div><div class="viewsub">Coûtant vs vendant, marge réelle à date — usage interne.</div><div class="empty">Vue à venir — marge sur la main-d'œuvre (vendant − coûtant) et majoration contractuelle.</div>`,
+ param:()=>`
+ <div class="viewtitle">Paramètres du projet</div>
+ <div class="viewsub">La fiche d'identité du projet &mdash; ce que tous les outils lisent : équipe, règles de facturation, taux vendants, intégrations. <b>Un projet, des outils.</b></div>
+ <style>
+ .setgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start}
+ .setcard{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:15px 17px;box-shadow:var(--sh)}
+ .setcard.full{grid-column:1/-1}
+ .setcard h3{font-size:13px;font-weight:700;color:var(--ink);margin:0 0 2px;display:flex;align-items:center;gap:8px}
+ .setcard h3 .hi{width:15px;height:15px;color:var(--green)}
+ .setcard .hint{font-size:11.5px;color:var(--muted);margin:0 0 13px}
+ .fld{margin-bottom:11px}
+ .fld:last-child{margin-bottom:0}
+ .fld label{display:block;font-size:10.5px;font-weight:600;color:var(--muted);margin-bottom:4px;text-transform:uppercase;letter-spacing:.03em}
+ .fld input,.fld select{width:100%;font-family:inherit;font-size:13px;color:var(--ink);background:var(--surface);border:1px solid var(--line-strong);border-radius:8px;padding:8px 10px}
+ .fld select{appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236B7280' stroke-width='2'><polyline points='6 9 12 15 18 9'/></svg>");background-repeat:no-repeat;background-position:right 10px center;padding-right:28px;cursor:pointer}
+ .fld input:focus,.fld select:focus{outline:none;border-color:var(--green);box-shadow:0 0 0 3px var(--pine-soft)}
+ .fld .ro{background:var(--surface-2);color:var(--muted);font-family:ui-monospace,monospace;font-size:12.5px}
+ .frow{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+ .frow3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+ table.taux{border-collapse:collapse;width:100%;font-size:12.5px;margin-top:2px}
+ table.taux th,table.taux td{padding:7px 10px;border-bottom:1px solid var(--line);text-align:left}
+ table.taux th{font-size:10.5px;text-transform:uppercase;letter-spacing:.03em;color:var(--muted);font-weight:600}
+ table.taux td.n{text-align:right;font-variant-numeric:tabular-nums}
+ table.taux td.v{text-align:right;font-variant-numeric:tabular-nums;font-weight:700;color:var(--green-dk)}
+ .linkrow{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)}
+ .linkrow:last-child{border-bottom:none}
+ .linkrow .ln{font-weight:600;color:var(--ink);font-size:13px}
+ .linkrow .sub{font-size:11.5px;color:var(--muted)}
+ .lie{background:var(--pine-soft);color:var(--green-dk);font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:20px;white-space:nowrap}
+ .obtn{background:var(--surface);border:1px solid var(--line-strong);color:var(--green-dk);border-radius:8px;padding:6px 11px;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap}
+ .setactions{display:flex;gap:10px;margin:16px 0 4px}
+ .btn-primary{background:var(--green);color:#fff;border:none;border-radius:9px;padding:10px 18px;font-weight:700;font-size:13px;cursor:pointer}
+ .btn-ghost{background:var(--surface);border:1px solid var(--line-strong);color:var(--ink);border-radius:9px;padding:10px 16px;font-weight:600;font-size:13px;cursor:pointer}
+ </style>
+ <div class="setgrid">
+
+  <div class="setcard">
+   <h3>Identité</h3>
+   <div class="hint">Ancrage unique du projet. Le n&deg; de mandat Maestro est la clé commune à tous les outils.</div>
+   <div class="fld"><label>N&deg; de mandat Maestro</label><input class="ro" value="23-003" readonly></div>
+   <div class="fld"><label>Nom du projet</label><input value="Camion avantage"></div>
+   <div class="frow">
+    <div class="fld"><label>Statut</label><select><option>En cours</option><option>En appel d'offres</option><option>En clôture</option><option>Terminé</option></select></div>
+    <div class="fld"><label>Type de facturation</label><select><option>Cost + (coûtant majoré)</option><option>Forfaitaire</option><option>Prix unitaire</option><option>Gérance</option></select></div>
+   </div>
+  </div>
+
+  <div class="setcard">
+   <h3>Client & coordonnées</h3>
+   <div class="hint">Donneur d'ouvrage et contact de facturation.</div>
+   <div class="fld"><label>Client</label><input value="Logistique Nord inc."></div>
+   <div class="frow">
+    <div class="fld"><label>Contact principal</label><input value="Julie Bélanger"></div>
+    <div class="fld"><label>Téléphone</label><input value="(418) 555-0142"></div>
+   </div>
+   <div class="fld"><label>Courriel</label><input value="jbelanger@logistiquenord.ca"></div>
+   <div class="fld"><label>Adresse</label><input value="2450, boul. Industriel, Québec (QC)  G2E 3M4"></div>
+  </div>
+
+  <div class="setcard full">
+   <h3>Équipe projet</h3>
+   <div class="hint">Les rôles alimentent les approbations (feuilles de temps, rapports, demandes de paiement) et le routage du support.</div>
+   <div class="frow3">
+    <div class="fld"><label>Chargé de projet (CP)</label><select><option>Marc Tremblay</option><option>Pier-Alexandre Gauthier</option><option>Simon Fortin</option><option>Karine Roy</option></select></div>
+    <div class="fld"><label>Adjoint au CP</label><select><option>Sophie Lavoie</option><option>Antoine Girard</option><option>Mélanie Dubé</option></select></div>
+    <div class="fld"><label>Surintendant</label><select><option>Daniel Côté</option><option>Éric Bergeron</option><option>Patrick Nadeau</option></select></div>
+   </div>
+   <div class="hint" style="margin:6px 0 10px">Responsables &mdash; support projet</div>
+   <div class="frow3">
+    <div class="fld"><label>SST</label><select><option>Geneviève Caron</option><option>Luc Ouellet</option></select></div>
+    <div class="fld"><label>BIM / VDC</label><select><option>Jonathan Pelletier</option><option>Maxime Gagné</option></select></div>
+    <div class="fld"><label>Contrôle qualité</label><select><option>Nancy Lemieux</option><option>Hugo Bouchard</option></select></div>
+   </div>
+   <div class="frow3">
+    <div class="fld"><label>Technique / estimation</label><select><option>Vincent Morin</option><option>Alexandre Roy</option></select></div>
+    <div class="fld"><label>Administration de projet</label><select><option>Caroline Bédard</option><option>Josée Fortier</option></select></div>
+    <div class="fld"><label>Approvisionnement</label><select><option>Martin Lévesque</option><option>&mdash;</option></select></div>
+   </div>
+  </div>
+
+  <div class="setcard">
+   <h3>Paramètres contractuels & financiers</h3>
+   <div class="hint">Règles qui pilotent la facturation Cost + et la conversion coûtant &rarr; vendant.</div>
+   <div class="frow3">
+    <div class="fld"><label>Majoration contractuelle</label><input value="7,5 %"></div>
+    <div class="fld"><label>Retenue contractuelle</label><input value="10 %"></div>
+    <div class="fld"><label>Devise</label><select><option>CAD</option><option>USD</option></select></div>
+   </div>
+   <div class="frow">
+    <div class="fld"><label>Taxes</label><select><option>TPS + TVQ</option><option>Hors taxes</option></select></div>
+    <div class="fld"><label>Cycle de facturation</label><select><option>Mensuel</option><option>Bimensuel</option><option>À l'avancement</option></select></div>
+   </div>
+  </div>
+
+  <div class="setcard">
+   <h3>Grille de taux horaires vendants</h3>
+   <div class="hint">Taux facturables des forces propres &mdash; source de la conversion coûtant &rarr; vendant dans Gestion des coûts.</div>
+   <table class="taux"><thead><tr><th>Classe / métier</th><th style="text-align:right">Taux vendant ($/h)</th></tr></thead><tbody>
+    <tr><td>Manœuvre</td><td class="v">62,00</td></tr>
+    <tr><td>Charpentier-menuisier</td><td class="v">74,00</td></tr>
+    <tr><td>Chef d'équipe</td><td class="v">82,00</td></tr>
+    <tr><td>Opérateur d'équipement</td><td class="v">88,00</td></tr>
+    <tr><td>Contremaître</td><td class="v">95,00</td></tr>
+    <tr><td>Surintendant</td><td class="v">110,00</td></tr>
+   </tbody></table>
+  </div>
+
+  <div class="setcard full">
+   <h3>Import du budget &mdash; classeur EG (CSV)</h3>
+   <div class="hint">Le budget initial, les lots et les quantités-repères proviennent de l'estimation (EG). L'import lit au niveau <b>sous-code</b> (## ## ##.##) et rejette&mdash;en les nommant&mdash;les lignes dont l'unité n'est pas au référentiel.</div>
+   <div style="border:1.5px dashed var(--line-strong);border-radius:12px;padding:22px 18px;text-align:center;background:var(--surface-2)">
+    <div style="color:var(--green);margin-bottom:6px"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></div>
+    <div style="font-weight:600;color:var(--ink);font-size:13.5px">Glisser le classeur <b>.CSV</b> exporté de l'EG, ou <span style="color:var(--green-dk);text-decoration:underline;cursor:pointer">parcourir</span></div>
+    <div style="font-size:11.5px;color:var(--muted);margin-top:5px">Lecture au sous-code (## ## ##.##) &middot; quantité-repère &middot; unités EG reconnues (HRE, M&sup3;, T.M., LOT, ME.L, MCX, FLS&hellip;)</div>
+   </div>
+   <div class="linkrow" style="margin-top:12px"><div><div class="ln">Dernier import &mdash; 23-003_budget_EG.csv</div><div class="sub">18 oct. 2026, 14:07 &middot; 142 lignes &middot; 5 lots cr&eacute;&eacute;s &middot; 0 rejet</div></div><span class="lie">&#9679; Import&eacute;</span></div>
+   <div class="setactions" style="margin:12px 0 0">
+    <button class="btn-primary">Importer le fichier</button>
+    <button class="btn-ghost">Journal d'import</button>
+   </div>
+  </div>
+
+  <div class="setcard full">
+   <h3>Intégrations & liens</h3>
+   <div class="hint">Le projet est la même entité partout. Ces liens connectent la fiche aux systèmes sources.</div>
+   <div class="linkrow"><div><div class="ln">Maestro &mdash; comptabilité de projet</div><div class="sub">Coûts réels, contrats ST, paye. Clé&nbsp;: n&deg; mandat 23-003.</div></div><span class="lie">&#9679; Lié</span></div>
+   <div class="linkrow"><div><div class="ln">WBS Somtech</div><div class="sub">Structure de découpage, lots, avancement.</div></div><span class="lie">&#9679; Lié</span></div>
+   <div class="linkrow"><div><div class="ln">ACC &mdash; Autodesk Construction Cloud</div><div class="sub">Plans, devis, RFI, photos, contrats &mdash; dossier 23-003.</div></div><button class="obtn">Ouvrir &#8599;</button></div>
+   <div class="linkrow"><div><div class="ln">SharePoint</div><div class="sub">Dossier administratif synchronisé.</div></div><button class="obtn">Ouvrir &#8599;</button></div>
+  </div>
+
+ </div>
+ <div class="setactions">
+  <button class="btn-primary">Enregistrer les paramètres</button>
+  <button class="btn-ghost">Historique des modifications</button>
+ </div>
+`,
+ acc:()=>`<div class="viewtitle">Documents — ACC & SharePoint</div><div class="viewsub">La vérité documentaire du projet vit dans ACC, synchronisée à SharePoint. Ces liens ouvrent le dossier du projet.</div>
+  <div class="linkcard"><div class="i">🗂️</div><div><div class="tn">ACC — Autodesk Construction Cloud</div><div class="td">Plans, devis, dessins d'atelier, RFI, photos, contrats. Dossier 23-003.</div></div><div class="go">Ouvrir ↗</div></div>
+  <div class="linkcard"><div class="i">📁</div><div><div class="tn">SharePoint — Construction Gauthier</div><div class="td">Miroir synchronisé en temps réel de l'arborescence ACC.</div></div><div class="go">Ouvrir ↗</div></div>`,
+ sp:()=>VIEWS.acc(),
+};
+function nav(v){document.querySelectorAll('.navi').forEach(n=>n.classList.toggle('on',n.dataset.v===v));document.getElementById('content').innerHTML=(VIEWS[v]||VIEWS.dash)();document.querySelector('.main').scrollTo(0,0);window.scrollTo(0,0);}
+document.querySelectorAll('#project .navi').forEach(n=>n.addEventListener('click',()=>nav(n.dataset.v)));
+let coutState={mode:'mf',dense:false,collapsed:{},_parents:[]};
+function coutRender(){document.getElementById('content').innerHTML=VIEWS.cout();}
+function coutMode(m){if(coutState.mode!==m){coutState.mode=m;coutState.collapsed={};coutRender();}}
+function coutDense(d){if(coutState.dense!==d){coutState.dense=d;coutRender();}}
+function coutTog(id){coutState.collapsed[id]=!coutState.collapsed[id];coutRender();}
+function coutAll(c){coutState._parents.forEach(id=>coutState.collapsed[id]=c);coutRender();}
+function portView(){return `
+  <h1>Portefeuille de projets</h1>
+  <div class="sub">Tous les projets CG. Clique un projet pour ouvrir sa page.</div>
+  <div class="proto">Maquette · « un projet, des outils »</div>
+  <div class="ptools"><div class="search">&#128269; <input id="q" placeholder="Rechercher (numéro, nom, client)…" oninput="filt()"></div><div class="count" id="count"></div></div>
+  <div class="plist"><div class="phrow head"><div>&#8470;</div><div>Projet</div><div>Type</div><div>Statut</div><div class="right">Montant</div><div>Échéance</div></div><div id="plist"></div></div>`;}
+function affectView(){return `
+ <div class="viewtitle">Affectation — Forces propres</div>
+ <div class="viewsub">Outil transversal : répartition des charpentiers sur les projets, par glisser-déposer (KPIs, horizon, transmettre).</div>
+ <div class="empty" style="margin-bottom:12px">Vue à venir dans l'application — l'outil existe déjà en prototype.</div>
+ <a href="https://pagau-cg.github.io/Affectation-MOD/" target="_blank" rel="noopener" class="linkcard" style="text-decoration:none;color:inherit">
+   <div class="i">&#128467;&#65039;</div>
+   <div><div class="tn">Affectation — Forces propres CG</div><div class="td">Prototype existant · pagau-cg.github.io/Affectation-MOD</div></div>
+   <div class="go">Ouvrir le prototype &#8599;</div>
+ </a>`;}
+function appPlaceholder(t){return `<div class="viewtitle">${t}</div><div class="viewsub">Vue transversale.</div><div class="empty">Vue à venir — ${t} au niveau de l'ensemble des projets.</div>`;}
+let dashState={sel:null};
+function dashRender(){document.getElementById('appstage').innerHTML=APPV.dashg();}
+function dashPick(k,v){const s=dashState.sel;dashState.sel=(s&&s.k===k&&s.v===v)?null:{k,v};dashRender();}
+function dashgView(){
+ const dec=(v,n)=>v.toFixed(n===undefined?1:n).replace('.',',');
+ const D=[
+  {num:'23-003',nom:'Camion avantage',cp:'Marc Tremblay',mt:2.42,av:64,mg:2.4,st:'c',type:'Cost +',x:430,y:158},
+  {num:'25-018',nom:'Caserne 3 — Chicoutimi',cp:'Marc Tremblay',mt:6.87,av:52,mg:3.1,st:'c',type:'Forfaitaire',x:448,y:148},
+  {num:'25-031',nom:'Usine Delisle',cp:'Marc Tremblay',mt:8.45,av:45,mg:2.0,st:'c',type:'Cost +',x:250,y:198},
+  {num:'26-011',nom:'Résidence Rivière-du-Moulin',cp:'Marc Tremblay',mt:6.10,av:40,mg:3.0,st:'c',type:'Forfaitaire',x:462,y:170},
+  {num:'25-012',nom:'Entrepôt Rive-Sud',cp:'Simon Fortin',mt:3.31,av:78,mg:1.8,st:'c',type:'Cost +',x:474,y:198},
+  {num:'25-027',nom:'Garage municipal Alma',cp:'Simon Fortin',mt:2.98,av:88,mg:4.2,st:'c',type:'Forfaitaire',x:300,y:150},
+  {num:'26-008',nom:'Poste électrique St-Bruno',cp:'Simon Fortin',mt:3.76,av:8,mg:5.0,st:'p',type:'Cost +',x:258,y:104},
+  {num:'25-033',nom:'Caserne 2 — rénovation',cp:'Simon Fortin',mt:2.24,av:60,mg:3.5,st:'c',type:'Accompagnement',x:388,y:176},
+  {num:'24-034',nom:'Faubourg Sagamie',cp:'Karine Roy',mt:5.14,av:35,mg:5.1,st:'p',type:'Forfaitaire',x:410,y:164},
+  {num:'25-021',nom:'Clinique Jonquière',cp:'Karine Roy',mt:4.20,av:20,mg:4.8,st:'p',type:'Accompagnement',x:374,y:182},
+  {num:'26-002',nom:'École primaire La Baie',cp:'Karine Roy',mt:11.20,av:12,mg:5.5,st:'p',type:'Accompagnement',x:480,y:186}];
+ const sel=dashState.sel;
+ const match=d=>!sel||(sel.k==='cp'&&d.cp===sel.v)||(sel.k==='st'&&d.st===sel.v)||(sel.k==='type'&&d.type===sel.v)||(sel.k==='num'&&d.num===sel.v);
+ const Df=D.filter(match);
+ const carnet=Df.reduce((a,d)=>a+d.mt,0)||0, avG=Df.length?Math.round(Df.reduce((a,d)=>a+d.av*d.mt,0)/carnet):0, mgG=Df.length?Df.reduce((a,d)=>a+d.mg,0)/Df.length:0;
+ const AL=[
+  {num:'25-031',p:'Usine Delisle',cp:'Marc Tremblay',a:'Heures CG risquent de dépasser',ind:'IPC 0,88',sev:'Élevée',sc:'bad'},
+  {num:'23-003',p:'Camion avantage',cp:'Marc Tremblay',a:'Valeur acquise sous la VP (retard)',ind:'IPD 0,65',sev:'Élevée',sc:'bad'},
+  {num:'25-012',p:'Entrepôt Rive-Sud',cp:'Simon Fortin',a:'Marge sous le seuil',ind:'1,8 % (< 3 %)',sev:'Moyenne',sc:'warn'},
+  {num:'24-034',p:'Faubourg Sagamie',cp:'Karine Roy',a:'Rapport quotidien en retard',ind:'3 jours',sev:'Moyenne',sc:'warn'},
+  {num:'26-011',p:'Résidence R.-du-Moulin',cp:'Marc Tremblay',a:'Retenue à libérer bientôt',ind:'61 000 $',sev:'Info',sc:'info'},
+  {num:'25-027',p:'Garage Alma',cp:'Simon Fortin',a:'Fin de contrat ST approche',ind:'12 nov.',sev:'Info',sc:'info'}];
+ const ALf=AL.filter(x=>Df.some(d=>d.num===x.num));
+ const nRisk=new Set(ALf.filter(x=>x.sev!=='Info').map(x=>x.num)).size;
+ const sevc={bad:'background:var(--red-lt);color:var(--red)',warn:'background:#fdf4df;color:#8a6a10',info:'background:var(--blue-lt);color:#2a5580'};
+ const alRows=ALf.length?ALf.map(x=>`<tr onclick="dashPick('num','${x.num}')" style="cursor:pointer"><td style="text-align:left;font-weight:600">${x.num} ${x.p}</td><td style="text-align:left;color:var(--muted)">${x.cp}</td><td style="text-align:left">${x.a}</td><td>${x.ind}</td><td><span class="pill" style="${sevc[x.sc]}">${x.sev}</span></td></tr>`).join(''):`<tr><td colspan="5" style="color:var(--muted);text-align:center;padding:14px">Aucune alerte sur la sélection.</td></tr>`;
+ // CP bars
+ const cps=[...new Set(D.map(d=>d.cp))];
+ const cpAgg=cps.map(cp=>({cp,mt:D.filter(d=>d.cp===cp).reduce((a,d)=>a+d.mt,0)}));
+ const cpMax=Math.max(...cpAgg.map(c=>c.mt));
+ const inDf=v=>Df.some(d=>d.cp===v);
+ const cpBars=cpAgg.map(c=>{const on=sel&&sel.k==='cp'&&sel.v===c.cp;const dim=sel&&!inDf(c.cp);return `<div class="hbar${dim?' dim':''}" onclick="dashPick('cp','${c.cp}')"><div class="nm">${c.cp}</div><div class="track"><div class="fill" style="width:${Math.round(c.mt/cpMax*100)}%;background:${on?'var(--pine-2)':'var(--pine)'}"></div></div><div class="val">${dec(c.mt)} M$</div></div>`;}).join('');
+ // Donut par type
+ const tcol={'Cost +':'#4C7334','Forfaitaire':'#2563EB','Accompagnement':'#D97706'};
+ const types=Object.keys(tcol).filter(t=>D.some(d=>d.type===t));
+ const tAgg={};D.forEach(d=>tAgg[d.type]=(tAgg[d.type]||0)+d.mt);
+ const tot=Object.values(tAgg).reduce((a,b)=>a+b,0);
+ const arc=(cx,cy,r,r2,a0,a1)=>{const P=(an,rr)=>[cx+rr*Math.cos(an),cy+rr*Math.sin(an)];const[x0,y0]=P(a0,r),[x1,y1]=P(a1,r),[x2,y2]=P(a1,r2),[x3,y3]=P(a0,r2);const lg=a1-a0>Math.PI?1:0;return `M${x0.toFixed(1)},${y0.toFixed(1)} A${r},${r} 0 ${lg} 1 ${x1.toFixed(1)},${y1.toFixed(1)} L${x2.toFixed(1)},${y2.toFixed(1)} A${r2},${r2} 0 ${lg} 0 ${x3.toFixed(1)},${y3.toFixed(1)} Z`;};
+ let ang=-Math.PI/2;const segs=types.map(t=>{const sw=tAgg[t]/tot*2*Math.PI;const on=sel&&sel.k==='type'&&sel.v===t;const dim=sel&&!(sel.k==='type'&&sel.v===t)&&!Df.some(d=>d.type===t);const p=arc(90,86,74,46,ang,ang+sw-0.02);ang+=sw;return `<path d="${p}" fill="${tcol[t]}" opacity="${dim?0.3:1}" onclick="dashPick('type','${t}')" style="cursor:pointer"/>`;}).join('');
+ const tLeg=types.map(t=>`<div onclick="dashPick('type','${t}')" style="display:flex;align-items:center;gap:7px;cursor:pointer;font-size:12.5px;padding:4px 0;${sel&&sel.k==='type'&&sel.v!==t?'opacity:.45':''}"><span style="width:10px;height:10px;border-radius:2px;background:${tcol[t]};flex:0 0 auto"></span>${t}<b style="margin-left:auto;font-variant-numeric:tabular-nums">${dec(tAgg[t])} M$</b></div>`).join('');
+ // Avancement par projet (Df)
+ const avBars=[...Df].sort((a,b)=>b.av-a.av).map(d=>`<div class="hbar sm" onclick="dashPick('num','${d.num}')"><div class="nm" style="width:150px">${d.nom}</div><div class="track"><div class="fill" style="width:${d.av}%;background:${d.av>=75?'var(--pine)':d.av>=35?'var(--pine-2)':'var(--amber)'}"></div></div><div class="val" style="width:38px">${d.av}%</div></div>`).join('');
+ // Map pins
+ const pinc={c:'#4C7334',p:'#2563EB'};
+ const pins=D.map(d=>{const m=match(d);const on=sel&&sel.k==='num'&&sel.v===d.num;return `<g onclick="dashPick('num','${d.num}')" style="cursor:pointer" opacity="${sel&&!m?0.25:1}"><circle cx="${d.x}" cy="${d.y}" r="${on?10:7}" fill="${pinc[d.st]}" stroke="#fff" stroke-width="2"/>${on?`<circle cx="${d.x}" cy="${d.y}" r="14" fill="none" stroke="${pinc[d.st]}" stroke-width="2" opacity="0.5"/>`:''}</g>`;}).join('');
+ // Liste projets (Df)
+ const stLab={c:'En cours',p:'Préparation'};
+ const stBg={c:'var(--green-lt);color:var(--green-dk)',p:'var(--blue-lt);color:#2a5580'};
+ const projRows=Df.map(d=>`<tr onclick="dashPick('num','${d.num}')" style="cursor:pointer"><td class="mono" style="text-align:left;color:var(--muted);font-size:11.5px">${d.num}</td><td style="text-align:left;font-weight:600">${d.nom}</td><td style="text-align:left;color:var(--muted)">${d.cp}</td><td>${dec(d.mt)} M$</td><td><div style="display:flex;align-items:center;gap:6px;justify-content:flex-end"><span>${d.av}%</span><span style="width:46px;height:6px;border-radius:4px;background:var(--surface-2);display:inline-block"><span style="display:block;height:6px;border-radius:4px;width:${d.av}%;background:var(--pine)"></span></span></div></td><td><span class="pill" style="background:${stBg[d.st]}">${stLab[d.st]}</span></td></tr>`).join('');
+ // Capacité vs charge
+ const caps=[{w:'S40',c:640,u:520},{w:'S41',c:640,u:600},{w:'S42',c:640,u:690},{w:'S43',c:720,u:730},{w:'S44',c:720,u:640},{w:'S45',c:640,u:560}];
+ const maxC=Math.max(...caps.map(k=>k.c),...caps.map(k=>k.u));
+ const capCols=caps.map(k=>{const H=104;const fh=Math.round(k.u/maxC*H);const ch=Math.round(k.c/maxC*H);const over=k.u>k.c;return `<div class="capcol"><div style="position:relative;width:30px;height:${H}px;display:flex;align-items:flex-end"><div style="position:absolute;left:-3px;right:-3px;bottom:${ch}px;border-top:2px dashed var(--muted)"></div><div style="width:100%;height:${fh}px;border-radius:5px 5px 0 0;background:${over?'var(--bad)':'var(--pine)'}"></div></div><div style="font-size:10.5px;color:var(--muted)">${k.w}</div></div>`;}).join('');
+ // filtre actif
+ const selLab=()=>{if(!sel)return '';if(sel.k==='cp')return sel.v;if(sel.k==='st')return stLab[sel.v];if(sel.k==='type')return sel.v;if(sel.k==='num'){const d=D.find(x=>x.num===sel.v);return d?d.num+' '+d.nom:sel.v;}return '';};
+ const chip=(lab,k,v)=>`<div class="chip${sel&&sel.k===k&&sel.v===v?' on':''}" onclick="dashPick('${k}','${v}')">${lab}</div>`;
+
+ const qc={ok:'background:var(--green-lt);color:var(--green-dk)',warn:'background:#fdf4df;color:#8a6a10',bad:'background:var(--red-lt);color:var(--red)'};
+ const SST=[
+  {num:'25-031',t:'Observation',d:'EPI manquant — zone soudure',dt:'20 oct',sev:'warn'},
+  {num:'23-003',t:'Inspection',d:'Inspection échafaudage — conforme',dt:'19 oct',sev:'ok'},
+  {num:'24-034',t:'Incident',d:'Premiers soins — coupure mineure',dt:'17 oct',sev:'bad'},
+  {num:'25-018',t:'Observation',d:'Cadenassage à rappeler',dt:'16 oct',sev:'warn'},
+  {num:'25-027',t:'Inspection',d:'Audit mensuel SST — 94 %',dt:'15 oct',sev:'ok'}];
+ const QUAL=[
+  {num:'25-012',t:'Non-conformité',d:'Ancrage non conforme au plan S-04',qs:'Ouverte',dt:'18 oct',sev:'bad'},
+  {num:'23-003',t:'Déficience',d:'Fini béton dalle — reprise ponctuelle',qs:'En cours',dt:'17 oct',sev:'warn'},
+  {num:'25-018',t:'Non-conformité',d:'Tolérance maçonnerie dépassée',qs:'Fermée',dt:'14 oct',sev:'ok'},
+  {num:'26-011',t:'Inspection',d:'Contrôle coffrage — conforme',qs:'Fermée',dt:'13 oct',sev:'ok'}];
+ const SSTf=SST.filter(x=>Df.some(d=>d.num===x.num));
+ const QUALf=QUAL.filter(x=>Df.some(d=>d.num===x.num));
+ const sstRows=SSTf.length?SSTf.map(x=>`<tr onclick="dashPick('num','${x.num}')" style="cursor:pointer"><td style="text-align:left"><span class="pill" style="${qc[x.sev]}">${x.t}</span></td><td style="text-align:left">${x.d}</td><td style="text-align:left;color:var(--muted)">${x.num}</td><td style="color:var(--muted)">${x.dt}</td></tr>`).join(''):`<tr><td colspan="4" style="text-align:center;color:var(--muted);padding:12px">Aucun élément sur la sélection.</td></tr>`;
+ const qualRows=QUALf.length?QUALf.map(x=>`<tr onclick="dashPick('num','${x.num}')" style="cursor:pointer"><td style="text-align:left"><span class="pill" style="${qc[x.sev]}">${x.t}</span></td><td style="text-align:left">${x.d}</td><td>${x.qs}</td><td style="color:var(--muted)">${x.dt}</td></tr>`).join(''):`<tr><td colspan="4" style="text-align:center;color:var(--muted);padding:12px">Aucun élément sur la sélection.</td></tr>`;
+  return `
+ <div class="viewtitle">Tableau de bord global</div>
+ <div class="viewsub">Cockpit du portefeuille. <b>Clique un CP, un type, un point sur la carte ou une ligne</b> — toutes les vues se recalculent sur ta sélection.</div>
+ <style>
+ .dgrid3{display:grid;grid-template-columns:1.1fr 1fr 1fr;gap:14px}
+ .slicer{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:2px 0 12px}
+ .slicer .lb{font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.04em}
+ .chip{border:1px solid var(--line-strong);background:var(--surface);color:var(--ink);border-radius:20px;padding:6px 13px;font-size:12.5px;cursor:pointer;font-family:inherit}
+ .chip.on{background:var(--pine);color:#fff;border-color:var(--pine)}
+ .fchip{background:var(--pine-soft);color:var(--green-dk);border:1px solid #cfe0c4;border-radius:20px;padding:6px 13px;font-size:12.5px;font-weight:600;cursor:pointer;display:inline-flex;gap:7px;align-items:center}
+ .hbar{display:flex;align-items:center;gap:10px;padding:7px 0;cursor:pointer}
+ .hbar.sm{padding:5px 0}
+ .hbar .nm{width:112px;font-size:12.5px;font-weight:600;flex:0 0 auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+ .hbar .track{flex:1;height:18px;background:var(--surface-2);border-radius:5px;overflow:hidden}
+ .hbar.sm .track{height:13px}
+ .hbar .fill{height:100%;border-radius:5px}
+ .hbar .val{width:66px;text-align:right;font-size:12px;font-variant-numeric:tabular-nums;flex:0 0 auto;color:var(--muted)}
+ .hbar.dim{opacity:.32}
+ .map-svg{width:100%;height:auto;display:block;background:#eef2eb;border-radius:10px;border:1px solid var(--line)}
+ .mlegend{display:flex;gap:14px;flex-wrap:wrap;font-size:11.5px;color:var(--muted);margin-top:8px}
+ .mlegend span{display:inline-flex;align-items:center;gap:5px}.mlegend i{width:9px;height:9px;border-radius:50%;display:inline-block}
+ .capwrap{display:flex;align-items:flex-end;justify-content:space-around;gap:6px;padding:8px 0 0}
+ .capcol{display:flex;flex-direction:column;align-items:center;gap:5px}
+ .statline{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid var(--line);font-size:13px}
+ .statline:last-child{border-bottom:none}.statline b{font-variant-numeric:tabular-nums}
+ </style>
+ <div class="slicer">
+  <span class="lb">Statut</span>${chip('En cours','st','c')}${chip('Préparation','st','p')}
+  <span style="width:10px"></span>
+  ${sel?`<span class="fchip" onclick="dashPick('${sel.k}','${(''+sel.v).replace(/'/g,"")}')">Filtre : ${selLab()} &nbsp;&times;</span>`:'<span style="font-size:12px;color:var(--faint)">Aucun filtre actif</span>'}
+ </div>
+ <div class="vcards">
+  <div class="vcard"><div class="l">Projets</div><div class="v">${Df.length}</div><div class="n">${sel?'sur sélection':'actifs'}</div></div>
+  <div class="vcard"><div class="l">Valeur au carnet</div><div class="v">${dec(carnet)} M$</div></div>
+  <div class="vcard"><div class="l">Avancement</div><div class="v">${avG} %</div><div class="n">pondéré</div></div>
+  <div class="vcard ok"><div class="l">Marge moyenne</div><div class="v" style="color:var(--green-dk)">${dec(mgG)} %</div></div>
+  <div class="vcard bad"><div class="l">À risque</div><div class="v" style="color:var(--red)">${nRisk}</div></div>
+ </div>
+ <div class="dgrid3">
+  <div class="panel"><h3>Montant par chargé de projet</h3>${cpBars}</div>
+  <div class="panel"><h3>Répartition par type</h3><div style="display:flex;align-items:center;gap:6px"><svg viewBox="0 0 180 172" style="width:150px;flex:0 0 auto">${segs}<text x="90" y="82" text-anchor="middle" font-size="19" font-weight="700" fill="var(--ink)">${dec(tot)}</text><text x="90" y="98" text-anchor="middle" font-size="10" fill="var(--muted)">M$</text></svg><div style="flex:1">${tLeg}</div></div></div>
+  <div class="panel"><h3>Santé financière & pipeline</h3>
+   <div class="statline"><span>Facturation en attente</span><b>1,2 M$</b></div>
+   <div class="statline"><span>Retenues cumulées</span><b>840 k$</b></div>
+   <div class="statline"><span>Encaissements — 30 j</span><b>1,6 M$</b></div>
+   <div class="statline"><span>Pipeline soumissions</span><b>4 · 24,3 M$</b></div>
+   <div class="statline"><span>Jours sans incident SST</span><b>137 j</b></div>
+  </div>
+ </div>
+ <div class="grid2">
+  <div class="panel"><h3>Carte du portefeuille</h3><div class="ph">Saguenay–Lac-Saint-Jean · clique un point pour filtrer (illustratif).</div>
+   <svg class="map-svg" viewBox="0 0 600 320" xmlns="http://www.w3.org/2000/svg">
+    <rect x="0" y="0" width="600" height="320" fill="#eef2eb"/>
+    <path d="M0,232 Q150,212 300,236 T600,250 L600,320 L0,320 Z" fill="#e4ead9"/>
+    <ellipse cx="215" cy="150" rx="95" ry="58" fill="#cfe0ec" stroke="#aec6da" stroke-width="1.5"/>
+    <text x="215" y="153" text-anchor="middle" font-size="12" fill="#5a7792" font-style="italic">Lac Saint-Jean</text>
+    <path d="M305,160 C360,172 400,180 470,190" fill="none" stroke="#cfe0ec" stroke-width="7" stroke-linecap="round"/>
+    ${pins}
+   </svg>
+   <div class="mlegend"><span><i style="background:#4C7334"></i>En cours</span><span><i style="background:#2563EB"></i>En préparation</span></div>
+  </div>
+  <div class="panel"><h3>Avancement par projet</h3><div class="ph">${Df.length} projet${Df.length>1?'s':''} sur la sélection.</div>${avBars||'<div style="color:var(--muted);padding:10px">—</div>'}</div>
+ </div>
+ <div class="sect">Projets ${sel?'(filtrés)':''}</div>
+ <div class="panel"><table class="lt"><thead><tr><th style="text-align:left">N°</th><th style="text-align:left">Projet</th><th style="text-align:left">CP</th><th>Montant</th><th>Avancement</th><th>Statut</th></tr></thead><tbody>${projRows}</tbody></table></div>
+ <div class="grid2">
+  <div class="panel"><h3>Capacité vs charge — forces propres</h3><div class="ph">Heures dispo (ligne pointillée) vs affectées (barre) · 6 semaines. Rouge = surcharge.</div><div class="capwrap">${capCols}</div></div>
+  <div class="panel"><h3>Éléments critiques</h3><div class="ph">Décisions à prendre cette semaine.</div><table class="lt"><thead><tr><th style="text-align:left">Projet</th><th style="text-align:left">CP</th><th style="text-align:left">Alerte</th><th>Ind.</th><th>Sév.</th></tr></thead><tbody>${alRows}</tbody></table></div>
+ </div>
+ <div class="sect">SST & Qualité</div>
+ <style>
+ .ministats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
+ .ministat{background:var(--surface-2);border-radius:9px;padding:9px 11px}
+ .ministat .mv{font-size:17px;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums}
+ .ministat .ml{font-size:10.5px;color:var(--muted);margin-top:1px}
+ .ministat.a .mv{color:var(--bad)}
+ .ministat.g .mv{color:var(--green-dk)}
+ </style>
+ <div class="grid2">
+  <div class="panel"><h3>Santé-sécurité (SST)</h3>
+   <div class="ministats">
+    <div class="ministat g"><div class="mv">137</div><div class="ml">Jours sans incident</div></div>
+    <div class="ministat"><div class="mv">1,8</div><div class="ml">Taux de fréquence</div></div>
+    <div class="ministat"><div class="mv">12/14</div><div class="ml">Inspections (mois)</div></div>
+    <div class="ministat"><div class="mv">34</div><div class="ml">Observations terrain</div></div>
+    <div class="ministat a"><div class="mv">2</div><div class="ml">Correctives en retard</div></div>
+    <div class="ministat g"><div class="mv">94 %</div><div class="ml">Conformité audits</div></div>
+   </div>
+   <table class="lt"><thead><tr><th style="text-align:left">Type</th><th style="text-align:left">Événement</th><th style="text-align:left">Projet</th><th>Date</th></tr></thead><tbody>${sstRows}</tbody></table>
+  </div>
+  <div class="panel"><h3>Qualité</h3>
+   <div class="ministats">
+    <div class="ministat a"><div class="mv">7</div><div class="ml">NC ouvertes</div></div>
+    <div class="ministat a"><div class="mv">2</div><div class="ml">NC en retard</div></div>
+    <div class="ministat"><div class="mv">3,2 %</div><div class="ml">Taux de reprise</div></div>
+    <div class="ministat"><div class="mv">9/10</div><div class="ml">Inspections CQ</div></div>
+    <div class="ministat"><div class="mv">41</div><div class="ml">Déficiences (punch)</div></div>
+    <div class="ministat g"><div class="mv">96 %</div><div class="ml">Conformité CQ</div></div>
+   </div>
+   <table class="lt"><thead><tr><th style="text-align:left">Type</th><th style="text-align:left">Élément</th><th>Statut</th><th>Date</th></tr></thead><tbody>${qualRows}</tbody></table>
+  </div>
+ </div>`;
+}
+function msBlock(K){return `<div class="ms">`+K.map(k=>`<div class="ms-c${k[2]?(' '+k[2]):''}"><div class="mv">${k[0]}</div><div class="ml">${k[1]}</div></div>`).join('')+`</div>`;}
+function confBars(rows){return rows.map(r=>`<div class="cfrow"><div class="cfn">${r[0]}</div><div class="cft"><div class="cff" style="width:${r[1]}%;background:${r[1]>=95?'var(--pine)':r[1]>=85?'var(--pine-2)':'var(--amber)'}"></div></div><div class="cfv">${r[1]} %</div></div>`).join('');}
+const _qc={ok:'background:var(--green-lt);color:var(--green-dk)',warn:'background:#fdf4df;color:#8a6a10',bad:'background:var(--red-lt);color:var(--red)'};
+const _sstCSS=`<style>
+.ms{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin:6px 0 16px}
+.ms-c{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 13px}
+.ms-c .mv{font-size:20px;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums}
+.ms-c .ml{font-size:11px;color:var(--muted);margin-top:2px}
+.ms-c.a .mv{color:var(--bad)} .ms-c.g .mv{color:var(--green-dk)}
+.cfrow{display:flex;align-items:center;gap:10px;padding:6px 0}
+.cfn{width:180px;font-size:12.5px;flex:0 0 auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cft{flex:1;height:14px;background:var(--surface-2);border-radius:5px;overflow:hidden}
+.cff{height:100%;border-radius:5px}
+.cfv{width:48px;text-align:right;font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums;flex:0 0 auto}
+@media(max-width:1100px){.ms{grid-template-columns:repeat(3,1fr)}}
+</style>`;
+function sstView(){
+ const K=[['137','Jours sans incident','g'],['1,8','Taux de fréquence (TF)',''],['0,9','Taux de gravité',''],['12/14','Inspections ce mois',''],['34','Observations terrain',''],['2','Correctives en retard','a']];
+ const R=[
+  {dt:'20 oct',p:'25-031 Usine Delisle',cp:'Marc Tremblay',t:'Observation',e:'EPI manquant — zone soudure',sev:'warn',st:'À corriger'},
+  {dt:'19 oct',p:'23-003 Camion avantage',cp:'Marc Tremblay',t:'Inspection',e:'Échafaudage — conforme',sev:'ok',st:'Fermé'},
+  {dt:'17 oct',p:'24-034 Faubourg Sagamie',cp:'Karine Roy',t:'Incident',e:'Premiers soins — coupure mineure',sev:'bad',st:'Enquête'},
+  {dt:'16 oct',p:'25-018 Caserne 3 — Chicoutimi',cp:'Marc Tremblay',t:'Observation',e:'Cadenassage à rappeler',sev:'warn',st:'À corriger'},
+  {dt:'15 oct',p:'25-027 Garage municipal Alma',cp:'Simon Fortin',t:'Audit',e:'Audit mensuel SST — 94 %',sev:'ok',st:'Fermé'},
+  {dt:'12 oct',p:'26-011 Résidence Rivière-du-Moulin',cp:'Marc Tremblay',t:'Observation',e:'Garde-corps manquant — niveau 2',sev:'warn',st:'Corrigé'}];
+ const rows=R.map(x=>`<tr><td style="color:var(--muted)">${x.dt}</td><td style="text-align:left">${x.p}</td><td style="text-align:left;color:var(--muted)">${x.cp}</td><td style="text-align:left"><span class="pill" style="${_qc[x.sev]}">${x.t}</span></td><td style="text-align:left">${x.e}</td><td>${x.st}</td></tr>`).join('');
+ return `
+ <div class="viewtitle">SST — Santé-sécurité</div>
+ <div class="viewsub">Outil transversal : incidents, observations, inspections et conformité SST sur l'ensemble des projets.</div>
+ ${_sstCSS}
+ ${msBlock(K)}
+ <div class="grid2">
+  <div class="panel"><h3>Conformité SST par projet</h3>${confBars([['Camion avantage',96],['Caserne 3 — Chicoutimi',92],['Usine Delisle',88],['Garage Alma',94],['Faubourg Sagamie',85],['Résidence R.-du-Moulin',90]])}</div>
+  <div class="panel"><h3>Mesures correctives</h3>
+   <div class="statline"><span>Ouvertes</span><b>9</b></div>
+   <div class="statline"><span>En retard</span><b style="color:var(--bad)">2</b></div>
+   <div class="statline"><span>Fermées ce mois</span><b>14</b></div>
+   <div class="statline"><span>Délai moyen de fermeture</span><b>4,2 j</b></div>
+   <div class="statline"><span>Toolbox / pauses-sécurité (mois)</span><b>22</b></div>
+  </div>
+ </div>
+ <div class="sect">Registre SST</div>
+ <div class="panel"><table class="lt"><thead><tr><th>Date</th><th style="text-align:left">Projet</th><th style="text-align:left">CP</th><th style="text-align:left">Type</th><th style="text-align:left">Événement</th><th>Statut</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+}
+function qualView(){
+ const K=[['7','NC ouvertes','a'],['2','NC en retard','a'],['3,2 %','Taux de reprise',''],['9/10','Inspections CQ',''],['41','Déficiences (punch)',''],['96 %','Conformité CQ','g']];
+ const R=[
+  {dt:'18 oct',p:'25-012 Entrepôt Rive-Sud',cp:'Simon Fortin',t:'Non-conformité',e:'Ancrage non conforme au plan S-04',sev:'bad',st:'Ouverte'},
+  {dt:'17 oct',p:'23-003 Camion avantage',cp:'Marc Tremblay',t:'Déficience',e:'Fini béton dalle — reprise ponctuelle',sev:'warn',st:'En cours'},
+  {dt:'16 oct',p:'25-031 Usine Delisle',cp:'Marc Tremblay',t:'Non-conformité',e:'Soudure — manque de pénétration',sev:'bad',st:'Ouverte'},
+  {dt:'14 oct',p:'25-018 Caserne 3 — Chicoutimi',cp:'Marc Tremblay',t:'Non-conformité',e:'Tolérance maçonnerie dépassée',sev:'ok',st:'Fermée'},
+  {dt:'13 oct',p:'26-011 Résidence Rivière-du-Moulin',cp:'Marc Tremblay',t:'Inspection',e:'Contrôle coffrage — conforme',sev:'ok',st:'Fermée'},
+  {dt:'11 oct',p:'24-034 Faubourg Sagamie',cp:'Karine Roy',t:'Déficience',e:'Étanchéité fenêtre — à reprendre',sev:'warn',st:'En cours'}];
+ const rows=R.map(x=>`<tr><td style="color:var(--muted)">${x.dt}</td><td style="text-align:left">${x.p}</td><td style="text-align:left;color:var(--muted)">${x.cp}</td><td style="text-align:left"><span class="pill" style="${_qc[x.sev]}">${x.t}</span></td><td style="text-align:left">${x.e}</td><td>${x.st}</td></tr>`).join('');
+ return `
+ <div class="viewtitle">Qualité</div>
+ <div class="viewsub">Outil transversal : non-conformités, déficiences (punch lists), inspections et conformité du contrôle qualité sur l'ensemble des projets.</div>
+ ${_sstCSS}
+ ${msBlock(K)}
+ <div class="grid2">
+  <div class="panel"><h3>Conformité CQ par projet</h3>${confBars([['Camion avantage',97],['Entrepôt Rive-Sud',89],['Usine Delisle',91],['Caserne 3 — Chicoutimi',96],['Garage Alma',98],['Faubourg Sagamie',93]])}</div>
+  <div class="panel"><h3>Non-conformités</h3>
+   <div class="statline"><span>Ouvertes</span><b style="color:var(--bad)">7</b></div>
+   <div class="statline"><span>En retard</span><b style="color:var(--bad)">2</b></div>
+   <div class="statline"><span>Fermées ce mois</span><b>11</b></div>
+   <div class="statline"><span>Coût de non-qualité (reprises)</span><b>38 k$</b></div>
+   <div class="statline"><span>Déficiences à corriger (punch)</span><b>41</b></div>
+  </div>
+ </div>
+ <div class="sect">Registre qualité — NC & déficiences</div>
+ <div class="panel"><table class="lt"><thead><tr><th>Date</th><th style="text-align:left">Projet</th><th style="text-align:left">CP</th><th style="text-align:left">Type</th><th style="text-align:left">Élément</th><th>Statut</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+}
+const APPV={port:portView,affect:affectView,dashg:dashgView,sst:sstView,qual:qualView,ops:()=>appPlaceholder("Gestion Ops"),rep:()=>appPlaceholder("Répertoire des ressources"),fpcap:()=>appPlaceholder("Forces propres — capacité"),rh:()=>` <div class="viewtitle">Ma Place RH</div>
+ <div class="viewsub">Portail employé & gestionnaire — accessible à <b>tous les travailleurs, sur leur cellulaire</b>. C'est l'entrée de l'application pour le terrain.</div>
+ <a class="linkcard" style="border-left:3px solid var(--green)">
+   <div class="i">&#9201;&#65039;</div>
+   <div><div class="tn">Feuille de temps <span style="background:var(--green);color:#fff;font-size:9px;font-weight:800;padding:1px 6px;border-radius:5px;margin-left:6px;vertical-align:middle">NOUVEAU</span></div><div class="td">Le travailleur saisit ses heures ici, sur son cell. Approuvée par le CP (en comparant au rapport quotidien), puis transmise à Maestro pour la paye.</div></div>
+   <div class="go">Ouvrir &#8599;</div>
+ </a>
+ <div class="sect">Autres outils du portail</div>
+ <div class="tiles">
+   <div class="tile"><div class="ic">&#127810;</div><div class="tn">Congés</div><div class="td">Demandes, soldes, approbations, congés Flex.</div></div>
+   <div class="tile"><div class="ic">&#128240;</div><div class="tn">2x4 &mdash; Actualités</div><div class="td">Nouvelles internes, événements, communications.</div></div>
+   <div class="tile"><div class="ic">&#128202;</div><div class="tn">Sondages & climat</div><div class="td">Sondages de climat, tendances, idées d'amélioration.</div></div>
+   <div class="tile"><div class="ic">&#128101;</div><div class="tn">Annuaire & équipe</div><div class="td">Employés actifs, rôles, probations.</div></div>
+ </div>`,rqg:()=>appPlaceholder("Rapports quotidiens — transversal")};
+function appNav(k){document.querySelectorAll('#portfolio .navi').forEach(n=>n.classList.toggle('on',n.dataset.av===k));document.getElementById('appstage').innerHTML=(APPV[k]||APPV.port)();if(k==='port')render(projets);window.scrollTo(0,0);}
+document.querySelectorAll('#portfolio .navi').forEach(n=>n.addEventListener('click',()=>appNav(n.dataset.av)));
+appNav('port');
+</script></body></html>
